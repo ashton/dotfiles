@@ -1,0 +1,42 @@
+[user]
+	name = Matheus Ashton Silva
+	email = matheusashton@gmail.com
+[core]
+	excludesfile = /Users/john/.gitignore_global
+[difftool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
+[alias]
+	st = status
+	br = branch
+	co = checkout
+	ci = commit
+	fs = flow feature start
+	ff = flow feature finish
+	fp = flow feature publish
+	rs = flow release start
+	rf = flow release finish
+	hs = flow hotfix start
+	hf = flow hotfix finish
+	log = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	tags = tag -l --sort=-v:refname
+[color]
+        ui = auto
+[color "branch"]
+        current = yellow reverse
+        local = yellow
+        remote = green
+[color "diff"]
+        meta = yellow bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+[color "status"]
+        added = green
+        changed = yellow
+        untracked = blue
+[push]
+	default = simple
