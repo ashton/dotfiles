@@ -1,0 +1,6 @@
+--languages=-javascript
+--langdef=js
+--langmap=js:.js
+--langmap=js:+.jsx
+
+--options=/Users/john/vim/ctags-patterns-for-javascript/ctagsrc
