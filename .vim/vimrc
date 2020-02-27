@@ -1,0 +1,277 @@
+set encoding=UTF-8
+colorscheme afterglow
+syntax enable
+
+set nocompatible
+set tabstop=2       " number of visual spaces per TAB
+set softtabstop=2   " number of spaces in tab when editing
+set shiftwidth=2
+set expandtab       " tabs into spaces
+set smarttab
+set guifont=FiraCode\ Nerd\ Font:h16
+
+set number          " show line numbers
+set relativenumber  " show numbers relative to the current line
+set cursorline      " show a horizontal line on the cursor line
+set showmatch       " highlight matching [{()}]
+set noshowcmd       " hides default statusline because of airline
+
+filetype indent on  " load filetype specific indent files
+set wildmenu        " visual autocomplete for command menu
+
+set lazyredraw      " redraw screen only when needed
+set updatetime=300  " better timing for coc.nvim diagnostics
+
+" more natural split order
+set splitbelow
+set splitright
+
+set cmdheight=2     " better display for messages
+set shortmess+=c    " don't give |ins-completion-menu| messages.
+
+set incsearch       " search as you type
+set hlsearch        " highlight matches
+set ignorecase
+set smartcase
+
+set directory=/tmp
+set nobackup
+set nowritebackup
+
+set tags=tags
+
+set wildignore+=**/node_modules/**,**/deps/** " please don't search in node_modules black hole
+set hidden  " allows to change buffer without saving it
+
+let mapleader=","   " map <leader> to ','
+
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch <CR>
+
+" search the current word
+nnoremap <S-F> :/<C-r><C-w><CR><S-N>
+
+" insert / normal mode toggling with capslock
+nnoremap <leader>m i
+inoremap <leader>m <Esc>
+
+" buffer keymapping
+nnoremap = :bnext<CR>
+nnoremap - :bprevious<CR>
+nnoremap <C-BS> :bd<CR>
+nnoremap <leader>d :BD<CR>
+
+" nerdtree keymap
+nnoremap \ :NERDTreeToggle<CR>
+nnoremap <D-\> :NERDTreeFind<CR>
+let NERDTreeMapOpenSplit='s'
+let NERDTreeMapOpenVSplit='v'
+let NERDTreeMapCloseDir='c'
+let NERDTreeMapCloseChildren='C'
+let NERDTreeMapChangeRoot='Z'
+
+  " FZF keymapping
+  nnoremap <leader>g :BTags<CR>
+  nnoremap <leader>t :Files<CR>
+  nnoremap <leader>fp :Ag 
+  nnoremap <leader>F :call fzf#vim#grep(expand('<cword>'))<CR>
+
+  " split mappings
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+
+  " resize panes
+   nnoremap <silent> <S-Right> :vertical resize +5<cr>
+   nnoremap <silent> <S-Left> :vertical resize -5<cr>
+   nnoremap <silent> <S-Up> :resize +5<cr>
+   nnoremap <silent> <S-Down> :resize -5<cr>
+
+  " test mappings
+  nnoremap <silent>TF :TestFile<CR>
+  nnoremap <silent>TN :TestNearest<CR>
+  nnoremap <silent>TS :TestSuite<CR>
+  nnoremap <silent>TL :TestLast<CR>
+
+  " Prettier
+  nmap <Leader>P <Plug>(Prettier)
+
+  " Coc Mappings for completion
+
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
+  nmap <leader>rf <Plug>(coc-refactor)
+
+  " Quickfix for current line
+  nmap <leader>qf <Plug>(coc-fix-current) 
+  " mapping for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gtd <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Create mappings for function text object, requires document symbols feature of languageserver.
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
+  " jump to the previous function
+  nnoremap <silent> [f :call
+\ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+" jump to the next function
+  nnoremap <silent> ]f :call
+\ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
+
+  " Navigate through diagnostics
+  nmap <silent> [l <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]l <Plug>(coc-diagnostic-next)
+
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+  " FZF configuration
+  " configuring fzf :Files command to start in vim's current directory
+  function! s:find_git_root()
+    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+  endfunction
+
+  command! ProjectFiles execute 'Files' s:find_git_root()
+
+  " shortcuts
+  let g:fzf_action = {
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit' }
+  let $FZF_DEFAULT_COMMAND = 'ag -p ~/.ignore -g ""'
+
+  " configuring airline plugin
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#formatter = 'unique_tail'
+  let g:airline_theme='wombat'
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#buffer_nr_show = 1
+
+  " snippets configuration
+  let g:UltiSnipsExpandTrigger='<Nop>'
+  let g:UltiSnipsJumpForwardTrigger = '<TAB>'
+  let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
+  let g:coc_snippet_next = '<TAB>'
+  let g:coc_snippet_prev = '<S-TAB>'
+
+  " coc extensions
+  let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-tsserver',
+  \ 'coc-highlight',
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-elixir',
+  \ 'coc-lists'
+  \ ]
+
+  let g:rainbow_conf = {
+\   'separately': {
+\       '*': 0,
+\       'clojure': {}
+\   }
+\}
+
+
+  " elm plugin config
+  let g:elm_setup_keybindings = 0     " removing bindings conflicts from elm-vim
+  let g:elm_format_autosave = 1
+
+  " jsx plugin config
+  let g:jsx_ext_required = 0
+
+  " vim closetag config
+  let g:closetag_filetypes = 'html,xhtml,phtml,javascript.jsx'
+  let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript.jsx'
+  let g:closetag_emptyTags_caseSensitive = 1
+  let g:closetag_shortcut = '>'
+  let g:closetag_close_shortcut = '<leader>>'
+
+" NERDTree config
+let NERDTreeQuitOnOpen=1
+let NERDTreeIgnore = ['\.pyc$', 'node_modules', 'build', 'dist', '.git/', 'tags', 'target', '\.bs\.js']
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
+
+" Testing config
+let test#strategy = "iterm"
+
+" Rainbow config
+let g:rainbow_active = 1
+
+" fzf config
+let g:fzf_tags_command = 'ctags -R'
+let g:fzf_buffers_jump = 1
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+call plug#begin('~/vim/plugged')
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-commentary'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'tpope/vim-fugitive'
+  Plug 'christoomey/vim-conflicted'
+  Plug 'alvan/vim-closetag'
+  Plug 'scrooloose/nerdtree'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'janko-m/vim-test'
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+  Plug 'metakirby5/codi.vim'
+  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+  Plug 'prettier/vim-prettier'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'luochen1990/rainbow'
+  Plug 'qpkorr/vim-bufkill'
+  Plug 'ludovicchabant/vim-gutentags'
+
+  " Language plugins
+  Plug 'sheerun/vim-polyglot'
+  Plug 'joaohkfaria/vim-jest-snippets'
+  Plug 'tpope/vim-fireplace'
+  Plug 'guns/vim-clojure-static'
+call plug#end()
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
