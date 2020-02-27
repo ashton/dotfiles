@@ -1,6 +1,3 @@
-# Shorter prompt style
-DEFAULT_USER=john
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -18,6 +15,7 @@ alias ll="ls -lG"
 alias lla="ls -laG"
 alias dc="docker-compose"
 alias docker-cleanup="docker rm $(docker ps -a -q) && docker rmi $(docker images -q)"
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 ### GO
 export GOPATH="${HOME}/go"
