@@ -29,6 +29,10 @@ export FZF_DEFAULT_COMMAND='ag -p ~/.ignore -g ""'
 
 ### TAGS
 alias ctags="`brew --prefix`/bin/ctags"
+export CTAGS="\
+  --options=$HOME/.tags/ctags-javascript/ctagsrc \
+  --options=$HOME/.tags/ctags-typescript/ctagsrc \
+"
 export GTAGSLABEL=ctags
 
 # HOMEBREW GITHUB API KEY
