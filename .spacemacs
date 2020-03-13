@@ -43,12 +43,15 @@ values."
      gtags
      themes-megapack
      auto-completion
+     syntax-checking
+
      ;;
      ;; Languages Layers
      ;;
      lsp
      emacs-lisp
      javascript
+     elm
      (clojure :variables clojure-enable-fancify-symbols t)
      (typescript :variables
                  typescript-backend 'lsp
@@ -56,14 +59,12 @@ values."
                  typescript-fmt-on-save t
                  typescript-fmt-tool 'prettier
                  typescript-linter 'eslint)
-     elm
      ;; better-defaults
      ;; markdown
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
