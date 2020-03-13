@@ -43,12 +43,15 @@ values."
      gtags
      themes-megapack
      auto-completion
+     syntax-checking
+
      ;;
      ;; Languages Layers
      ;;
      lsp
      emacs-lisp
      javascript
+     elm
      (clojure :variables clojure-enable-fancify-symbols t)
      (typescript :variables
                  typescript-backend 'lsp
@@ -56,14 +59,12 @@ values."
                  typescript-fmt-on-save t
                  typescript-fmt-tool 'prettier
                  typescript-linter 'eslint)
-     elm
      ;; better-defaults
      ;; markdown
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -326,7 +327,9 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq hl-paren-colors '("#5d00ff" "#00e1ff" "#2fff00" "#ffee00" "#ff8800"))
-  (setq-default typescript-indent-level 2))
+  (setq-default typescript-indent-level 2)
+  (setq display-line-numbers 'relative
+        display-line-numbers-current-absolute t))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
