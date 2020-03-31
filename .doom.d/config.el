@@ -52,6 +52,23 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; Configuring root folder for Projectile to search projects
 (setq projectile-project-search-path '("~/dev/"))
-(after! treemacs-load-theme 'doom-colors)
+
+;; Treemacs theme
+(after! doom-themes
+  (setq doom-themes-treemacs-theme "doom-colors"))
+
+;; Ignoring .gitignore files / dirs
+(after! treemacs
+  (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
+
+(add-hook 'typescript-mode-local-vars-hook
+          (lambda ()
+            (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)))
+(add-hook 'typescript-mode-local-vars-hook
+          (lambda ()
+            (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
