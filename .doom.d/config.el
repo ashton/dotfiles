@@ -28,7 +28,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/texts")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -58,7 +58,7 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; Configuring root folder for Projectile to search projects
-(setq projectile-project-search-path '("~/dev/" "~/Documents/texts/"))
+(setq projectile-project-search-path '("~/dev/" "~/dev/pessoal"))
 
 ;; Treemacs theme
 (after! doom-themes
