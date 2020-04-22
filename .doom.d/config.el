@@ -34,6 +34,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
+;; Indentation levels
+(setq typescript-indent-level 2)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -56,11 +58,14 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; Configuring root folder for Projectile to search projects
-(setq projectile-project-search-path '("~/dev/"))
+(setq projectile-project-search-path '("~/dev/" "~/Documents/texts/"))
 
 ;; Treemacs theme
 (after! doom-themes
   (setq doom-themes-treemacs-theme "doom-colors"))
+
+(after! dtrt-indent
+ (add-to-list 'dtrt-indent-hook-mapping-list '(typescript-mode javascript typescript-indent-level)))
 
 ;; Ignoring .gitignore files / dirs
 (after! treemacs
