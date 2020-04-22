@@ -8,7 +8,6 @@ set softtabstop=2   " number of spaces in tab when editing
 set shiftwidth=2
 set expandtab       " tabs into spaces
 set smarttab
-set guifont=FiraCode\ Nerd\ Font:h16
 
 set number          " show line numbers
 set relativenumber  " show numbers relative to the current line
@@ -169,6 +168,8 @@ let NERDTreeMapChangeRoot='Z'
   let g:airline_theme='wombat'
   let g:airline_powerline_fonts = 1
   let g:airline#extensions#tabline#buffer_nr_show = 1
+  let airline#extensions#coc#error_symbol = '🚫'
+  let airline#extensions#coc#warning_symbol = '⚠'
 
   " snippets configuration
   let g:UltiSnipsExpandTrigger='<Nop>'
@@ -218,7 +219,9 @@ if exists('g:loaded_webdevicons')
 endif
 
 " Testing config
-let test#strategy = "iterm"
+let test#strategy = "neomake"
+let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+let g:neomake_open_list = 0
 
 " Rainbow config
 let g:rainbow_active = 1
@@ -264,6 +267,8 @@ call plug#begin('~/vim/plugged')
   Plug 'luochen1990/rainbow'
   Plug 'qpkorr/vim-bufkill'
   Plug 'ludovicchabant/vim-gutentags'
+  Plug 'neomake/neomake'
+  Plug 'tpope/vim-dispatch'
 
   " Language plugins
   Plug 'sheerun/vim-polyglot'
@@ -271,7 +276,3 @@ call plug#begin('~/vim/plugged')
   Plug 'tpope/vim-fireplace'
   Plug 'guns/vim-clojure-static'
 call plug#end()
-
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
