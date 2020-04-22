@@ -35,5 +35,4 @@ export CTAGS="\
 "
 export GTAGSLABEL=ctags
 
-# HOMEBREW GITHUB API KEY
-export HOMEBREW_GITHUB_API_TOKEN="26c6306972b31368ed4f3add104d4d6b720e3a9e"
+source ~/.keys
