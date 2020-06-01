@@ -1,6 +1,9 @@
 set encoding=UTF-8
 colorscheme afterglow
 syntax enable
+if (has("termguicolors"))
+ set termguicolors
+endif
 
 set nocompatible
 set tabstop=2       " number of visual spaces per TAB
@@ -37,32 +40,31 @@ set directory=/tmp
 set nobackup
 set nowritebackup
 
-set tags=tags
-
 set wildignore+=**/node_modules/**,**/deps/** " please don't search in node_modules black hole
 set hidden  " allows to change buffer without saving it
 
-let mapleader=","   " map <leader> to ','
+let mapleader="\<Space>"   " map <leader> to spacebar
 
 " turn off search highlight
-nnoremap <leader><space> :nohlsearch <CR>
+nnoremap <silent> <leader>hc :nohlsearch <CR>
 
-" search the current word
-nnoremap <S-F> :/<C-r><C-w><CR><S-N>
-
-" insert / normal mode toggling with capslock
-nnoremap <leader>m i
-inoremap <leader>m <Esc>
+" insert / normal mode toggling with capslock, considering caps remaped to esc
+" in system configuration
+nnoremap <Esc> i
 
 " buffer keymapping
-nnoremap = :bnext<CR>
-nnoremap - :bprevious<CR>
-nnoremap <C-BS> :bd<CR>
-nnoremap <leader>d :BD<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprevious<CR>
+nnoremap <leader>bD :bd<CR>
+nnoremap <leader>bd :BD<CR>
+nnoremap <leader>bb :CocList buffers<CR>
 
 " nerdtree keymap
 nnoremap \ :NERDTreeToggle<CR>
+nnoremap <leader>op :NERDTreeToggle<CR>
 nnoremap <D-\> :NERDTreeFind<CR>
+nnoremap <leader>oP :NERDTreeFind<CR>
+
 let NERDTreeMapOpenSplit='s'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapCloseDir='c'
@@ -70,16 +72,16 @@ let NERDTreeMapCloseChildren='C'
 let NERDTreeMapChangeRoot='Z'
 
   " FZF keymapping
-  nnoremap <leader>g :BTags<CR>
-  nnoremap <leader>t :Files<CR>
-  nnoremap <leader>fp :Ag 
-  nnoremap <leader>F :call fzf#vim#grep(expand('<cword>'))<CR>
+  nnoremap <leader><leader> :Files<CR>
+  nnoremap <leader>sp :Ag 
+  nnoremap <leader>hw :call fzf#vim#grep(expand('<cword>'))<CR>
 
   " split mappings
-  nnoremap <C-J> <C-W><C-J>
-  nnoremap <C-K> <C-W><C-K>
-  nnoremap <C-L> <C-W><C-L>
-  nnoremap <C-H> <C-W><C-H>
+  nnoremap <leader>wj <C-W><C-J>
+  nnoremap <leader>wk <C-W><C-K>
+  nnoremap <leader>wl <C-W><C-L>
+  nnoremap <leader>wh <C-W><C-H>
+  nnoremap <leader>wd <C-W>q
 
   " resize panes
    nnoremap <silent> <S-Right> :vertical resize +5<cr>
@@ -88,13 +90,13 @@ let NERDTreeMapChangeRoot='Z'
    nnoremap <silent> <S-Down> :resize -5<cr>
 
   " test mappings
-  nnoremap <silent>TF :TestFile<CR>
-  nnoremap <silent>TN :TestNearest<CR>
-  nnoremap <silent>TS :TestSuite<CR>
-  nnoremap <silent>TL :TestLast<CR>
+  nnoremap <silent> <leader>tf :TestFile<CR>
+  nnoremap <silent> <leader>tn :TestNearest<CR>
+  nnoremap <silent> <leader>ts :TestSuite<CR>
+  nnoremap <silent> <leader>tl :TestLast<CR>
 
   " Prettier
-  nmap <Leader>P <Plug>(Prettier)
+  nmap <Leader>cfb <Plug>(Prettier)
 
   " Coc Mappings for completion
 
@@ -112,16 +114,21 @@ let NERDTreeMapChangeRoot='Z'
   endfunction
 
   " Remap for rename current word
-  nmap <leader>rn <Plug>(coc-rename)
-  nmap <leader>rf <Plug>(coc-refactor)
+  nmap <leader>cr <Plug>(coc-rename)
+  nmap <leader>cR <Plug>(coc-refactor)
 
   " Quickfix for current line
   nmap <leader>qf <Plug>(coc-fix-current) 
-  " mapping for gotos
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gtd <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
+
+  " code mappings
+  nmap <silent> <leader>cgd <Plug>(coc-definition)
+  nmap <silent> <leader>cgt <Plug>(coc-type-definition)
+  nmap <silent> <leader>cgi <Plug>(coc-implementation)
+  nmap <silent> <leader>cgr <Plug>(coc-references)
+  nnoremap <silent> <leader>ca :CocCommand actions.open<CR>
+  nnoremap <silent> <leader>cx :CocList diagnostics<CR>
+  nnoremap <silent> <leader>cl :CocList outline<CR>
+  
 
   " Create mappings for function text object, requires document symbols feature of languageserver.
   xmap if <Plug>(coc-funcobj-i)
@@ -165,7 +172,7 @@ let NERDTreeMapChangeRoot='Z'
   " configuring airline plugin
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail'
-  let g:airline_theme='wombat'
+  let g:airline_theme='base16'
   let g:airline_powerline_fonts = 1
   let g:airline#extensions#tabline#buffer_nr_show = 1
   let airline#extensions#coc#error_symbol = '🚫'
@@ -177,6 +184,7 @@ let NERDTreeMapChangeRoot='Z'
   let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
   let g:coc_snippet_next = '<TAB>'
   let g:coc_snippet_prev = '<S-TAB>'
+  let g:coc_node_path = '~/.asdf/shims/node'
 
   " coc extensions
   let g:coc_global_extensions = [
@@ -251,7 +259,6 @@ call plug#begin('~/vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'tpope/vim-fugitive'
-  Plug 'christoomey/vim-conflicted'
   Plug 'alvan/vim-closetag'
   Plug 'scrooloose/nerdtree'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -260,19 +267,19 @@ call plug#begin('~/vim/plugged')
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
   Plug 'metakirby5/codi.vim'
-  Plug 'ludovicchabant/vim-gutentags'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
   Plug 'prettier/vim-prettier'
   Plug 'ryanoasis/vim-devicons'
   Plug 'luochen1990/rainbow'
   Plug 'qpkorr/vim-bufkill'
-  Plug 'ludovicchabant/vim-gutentags'
   Plug 'neomake/neomake'
   Plug 'tpope/vim-dispatch'
 
   " Language plugins
   Plug 'sheerun/vim-polyglot'
   Plug 'joaohkfaria/vim-jest-snippets'
-  Plug 'tpope/vim-fireplace'
-  Plug 'guns/vim-clojure-static'
+
+  " Themes
+   Plug 'arcticicestudio/nord-vim'
+   Plug 'mhartington/oceanic-next'
 call plug#end()
