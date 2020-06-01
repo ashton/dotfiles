@@ -68,7 +68,9 @@
  (add-to-list 'dtrt-indent-hook-mapping-list '(typescript-mode javascript typescript-indent-level)))
 
 ;; Ignoring .gitignore files / dirs
+(setq treemacs-python-executable "/usr/local/bin/python3")
 (after! treemacs
+  (treemacs-git-mode 'extended)
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
 
 (add-hook 'typescript-mode-local-vars-hook
