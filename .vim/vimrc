@@ -1,5 +1,4 @@
 set encoding=UTF-8
-colorscheme afterglow
 syntax enable
 if (has("termguicolors"))
  set termguicolors
@@ -16,7 +15,9 @@ set number          " show line numbers
 set relativenumber  " show numbers relative to the current line
 set cursorline      " show a horizontal line on the cursor line
 set showmatch       " highlight matching [{()}]
-set noshowcmd       " hides default statusline because of airline
+
+set laststatus=2    " show lightline
+set noshowmode      " hide mode from statusline
 
 filetype indent on  " load filetype specific indent files
 set wildmenu        " visual autocomplete for command menu
@@ -154,6 +155,7 @@ let NERDTreeMapChangeRoot='Z'
   " Coc only does snippet and additional edit on confirm.
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+
   " FZF configuration
   " configuring fzf :Files command to start in vim's current directory
   function! s:find_git_root()
@@ -162,21 +164,46 @@ let NERDTreeMapChangeRoot='Z'
 
   command! ProjectFiles execute 'Files' s:find_git_root()
 
+  " Lightline configuration
+  function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+  endfunction
+
+  function! DevIconsFileType()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  endfunction
+
+  function! DevIconsFileFormat()
+    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+  endfunction
+
+  function! LightlineFilename()
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+    let modified = &modified ? ' +' : ''
+    return filename . modified
+  endfunction
+
+  let g:lightline = {
+  \ 'colorscheme': 'oceanicnext',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'cocstatus', 'currentfunction', 'filename' ] ]
+  \ },
+  \ 'component_function': {
+  \   'cocstatus': 'coc#status',
+  \   'currentfunction': 'CocCurrentFunction',
+  \   'filetype': 'DevIconsFileType',
+  \   'fileformat': 'DevIconsFileFormat',
+  \   'filename': 'LightlineFilename'
+  \ },
+  \ }
+
   " shortcuts
   let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit' }
   let $FZF_DEFAULT_COMMAND = 'ag -p ~/.ignore -g ""'
-
-  " configuring airline plugin
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#formatter = 'unique_tail'
-  let g:airline_theme='base16'
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  let airline#extensions#coc#error_symbol = '🚫'
-  let airline#extensions#coc#warning_symbol = '⚠'
 
   " snippets configuration
   let g:UltiSnipsExpandTrigger='<Nop>'
@@ -185,6 +212,9 @@ let NERDTreeMapChangeRoot='Z'
   let g:coc_snippet_next = '<TAB>'
   let g:coc_snippet_prev = '<S-TAB>'
   let g:coc_node_path = '~/.asdf/shims/node'
+
+  let g:coc_status_error_sign = '🚫 '
+  let g:coc_status_warning_sign = '⚠️  '
 
   " coc extensions
   let g:coc_global_extensions = [
@@ -256,11 +286,10 @@ call plug#begin('~/vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
   Plug 'jiangmiao/auto-pairs'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
   Plug 'tpope/vim-fugitive'
   Plug 'alvan/vim-closetag'
   Plug 'scrooloose/nerdtree'
+  Plug 'itchyny/lightline.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'janko-m/vim-test'
@@ -281,5 +310,7 @@ call plug#begin('~/vim/plugged')
 
   " Themes
    Plug 'arcticicestudio/nord-vim'
-   Plug 'mhartington/oceanic-next'
+   Plug 'ashton/oceanic-next'
 call plug#end()
+
+colorscheme OceanicNext
