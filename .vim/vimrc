@@ -17,6 +17,7 @@ set cursorline      " show a horizontal line on the cursor line
 set showmatch       " highlight matching [{()}]
 
 set laststatus=2    " show lightline
+set showtabline=2   " lightline buffers
 set noshowmode      " hide mode from statusline
 
 filetype indent on  " load filetype specific indent files
@@ -24,6 +25,7 @@ set wildmenu        " visual autocomplete for command menu
 
 set lazyredraw      " redraw screen only when needed
 set updatetime=300  " better timing for coc.nvim diagnostics
+set timeoutlen=500  " time for keybidings menu
 
 " more natural split order
 set splitbelow
@@ -115,7 +117,7 @@ let NERDTreeMapChangeRoot='Z'
   nmap <leader>cR <Plug>(coc-refactor)
 
   " Quickfix for current line
-  nmap <leader>qf <Plug>(coc-fix-current) 
+  nmap <leader>cq <Plug>(coc-fix-current) 
 
   " code mappings
   nmap <silent> <leader>cgd <Plug>(coc-definition)
@@ -276,7 +278,7 @@ let g:fzf_colors =
   endfunction
 
   function! LightlineFilename()
-    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+    let filename = expand('%:p:.') !=# '' ? expand('%:p:.') : '[No Name]'
     let modified = &modified ? ' +' : ''
     return DevIconsFileType() . ' ' . filename . modified
   endfunction
@@ -287,6 +289,8 @@ let g:fzf_colors =
 
   let g:lightline = {
   \ 'colorscheme': 'oceanicnext',
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' },
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'gitbranch', 'currentfunction', 'filename' ] ],
@@ -298,6 +302,9 @@ let g:fzf_colors =
   \   'left': [ ['buffers'] ],
   \   'right': [ ['close'] ]
   \ },
+  \ 'component': {
+  \   'lineinfo': ' %3l:%-2v',
+  \ },
   \ 'component_expand': {
   \   'coc_errors': 'CocErrors',
   \   'coc_warnings': 'CocWarnings',
@@ -308,16 +315,51 @@ let g:fzf_colors =
   \   'coc_errors': 'error',
   \   'coc_warnings': 'warning'
   \ },
+  \ 'component_raw': {
+  \   'buffers': 1
+  \ },
   \ 'component_function': {
   \   'gitbranch': 'BranchName',
   \   'currentfunction': 'CocCurrentFunction',
   \   'filetype': 'DevIconsFileType',
   \   'fileformat': 'DevIconsFileFormat',
-  \   'filename': 'LightlineFilename'
+  \   'filename': 'LightlineFilename',
   \ },
 \ }
 
-  autocmd User CocDiagnosticChange call lightline#update()
+" Bufferline config
+" show full path and file name
+let g:lightline#bufferline#filename_modifier = ':t'
+" cool numbers for ordinal buffer show
+let g:lightline#bufferline#composed_number_map = {
+\ 1:  '⑴ ', 2:  '⑵ ', 3:  '⑶ ', 4:  '⑷ ', 5:  '⑸ ',
+\ 6:  '⑹ ', 7:  '⑺ ', 8:  '⑻ ', 9:  '⑼ ', 10: '⑽ ',
+\ 11: '⑾ ', 12: '⑿ ', 13: '⒀ ', 14: '⒁ ', 15: '⒂ ',
+\ 16: '⒃ ', 17: '⒄ ', 18: '⒅ ', 19: '⒆ ', 20: '⒇ '}
+" show buffers ordinal number
+let g:lightline#bufferline#show_number = 2
+" show unicode symbols of modified, readonly and more
+let g:lightline#bufferline#unicode_symbols = 1
+" devicons
+let g:lightline#bufferline#enable_devicons = 1
+" clickable tablines
+let g:lightline#bufferline#clickable = 1
+
+" updates lightline when coc diagnostics change
+autocmd User CocDiagnosticChange call lightline#update()
+
+" buffer jump mappings
+nmap <Leader>b1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>b2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>b3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>b4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>b5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>b6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>b7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>b8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>b9 <Plug>lightline#bufferline#go(9)
+
+
 
 call plug#begin('~/vim/plugged')
   Plug 'tpope/vim-surround'
@@ -341,6 +383,7 @@ call plug#begin('~/vim/plugged')
   Plug 'qpkorr/vim-bufkill'
   Plug 'neomake/neomake'
   Plug 'tpope/vim-dispatch'
+  Plug 'liuchengxu/vim-which-key'
 
   " Language plugins
   Plug 'sheerun/vim-polyglot'
@@ -352,3 +395,80 @@ call plug#begin('~/vim/plugged')
 call plug#end()
 
 colorscheme OceanicNext
+
+" menu for key mappings
+call which_key#register('<Space>', "g:which_key_map")
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+let g:which_key_map =  {}
+" window key mappings
+let g:which_key_map.w = { 'name' : '+window' }
+let g:which_key_map.w.d = 'close-window'
+let g:which_key_map.w.j = 'move-to-window-below'
+let g:which_key_map.w.k = 'move-to-window-above'
+let g:which_key_map.w.l = 'move-to-left-window'
+let g:which_key_map.w.h = 'move-to-right-window'
+
+" buffer key mappings
+let g:which_key_map.b = { 'name': '+buffer' }
+let g:which_key_map.b.1 = 'go-to-buffer-1'
+let g:which_key_map.b.2 = 'go-to-buffer-2'
+let g:which_key_map.b.3 = 'go-to-buffer-3'
+let g:which_key_map.b.4 = 'go-to-buffer-4'
+let g:which_key_map.b.5 = 'go-to-buffer-5'
+let g:which_key_map.b.6 = 'go-to-buffer-6'
+let g:which_key_map.b.7 = 'go-to-buffer-7'
+let g:which_key_map.b.8 = 'go-to-buffer-8'
+let g:which_key_map.b.9 = 'go-to-buffer-9'
+let g:which_key_map.b.a = 'alternate-MRU-buffers'
+let g:which_key_map.b.b = 'list-all-buffers'
+let g:which_key_map.b.b = 'list-all-buffers'
+let g:which_key_map.b.D = 'kill-buffer-and-split'
+let g:which_key_map.b.d = 'kill-buffer-keep-split'
+let g:which_key_map.b.f = 'kill-and-go-to-next'
+let g:which_key_map.b.w = 'kill-and-go-to-prev'
+
+" code key mappings
+let g:which_key_map.c = { 'name': '+code' }
+let g:which_key_map.c.a = 'view-code-actions'
+let g:which_key_map.c.l = 'list-buffer-symbols'
+let g:which_key_map.c.q = 'run-quick-fix'
+let g:which_key_map.c.R = 'coc-refactor-var'
+let g:which_key_map.c.r = 'rename-var'
+let g:which_key_map.c.x = 'list-diagnostics'
+
+let g:which_key_map.c.f = { 'name': '+format' }
+let g:which_key_map.c.f.b = 'prettier-format-current-buffer'
+
+let g:which_key_map.c.g = { 'name': '+go-to' }
+let g:which_key_map.c.g.d = 'go-to-definition'
+let g:which_key_map.c.g.i = 'go-to-implementation'
+let g:which_key_map.c.g.r = 'list-references'
+let g:which_key_map.c.g.t = 'go-to-type-definition'
+
+" highlight key mappings
+let g:which_key_map.h = { 'name': '+highlight' }
+let g:which_key_map.h.c = 'clear-highlight'
+let g:which_key_map.h.w = 'higlight-current-word'
+
+" open key mappings
+let g:which_key_map.o = { 'name': '+open' }
+let g:which_key_map.o.p = 'open-NERDTree'
+let g:which_key_map.o.P = 'find-in-NERDTree'
+
+" search key mappings
+let g:which_key_map.s = { 'name': '+search' }
+let g:which_key_map.s.p = 'search-in-project'
+
+" test key mappings
+let g:which_key_map.t = { 'name': '+test' }
+let g:which_key_map.t.f = 'test-file'
+let g:which_key_map.t.l = 'repeat-last-test'
+let g:which_key_map.t.n = 'test-nearest'
+let g:which_key_map.t.s = 'test-suite'
+
+" ignored mappings
+let g:which_key_map['!'] = { 'name': 'which_key_ignore' }
+
