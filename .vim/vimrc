@@ -164,39 +164,6 @@ let NERDTreeMapChangeRoot='Z'
 
   command! ProjectFiles execute 'Files' s:find_git_root()
 
-  " Lightline configuration
-  function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-  endfunction
-
-  function! DevIconsFileType()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-  endfunction
-
-  function! DevIconsFileFormat()
-    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-  endfunction
-
-  function! LightlineFilename()
-    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-    let modified = &modified ? ' +' : ''
-    return filename . modified
-  endfunction
-
-  let g:lightline = {
-  \ 'colorscheme': 'oceanicnext',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'currentfunction', 'filename' ] ]
-  \ },
-  \ 'component_function': {
-  \   'cocstatus': 'coc#status',
-  \   'currentfunction': 'CocCurrentFunction',
-  \   'filetype': 'DevIconsFileType',
-  \   'fileformat': 'DevIconsFileFormat',
-  \   'filename': 'LightlineFilename'
-  \ },
-  \ }
 
   " shortcuts
   let g:fzf_action = {
@@ -213,8 +180,8 @@ let NERDTreeMapChangeRoot='Z'
   let g:coc_snippet_prev = '<S-TAB>'
   let g:coc_node_path = '~/.asdf/shims/node'
 
-  let g:coc_status_error_sign = '🚫 '
-  let g:coc_status_warning_sign = '⚠️  '
+  let g:coc_status_error_sign = '✖ '
+  let g:coc_status_warning_sign = '⚠  '
 
   " coc extensions
   let g:coc_global_extensions = [
@@ -282,6 +249,80 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+  " Lightline configuration
+  function! CocErrors()
+    let info = get(b:, 'coc_diagnostic_info', {})
+    let errors = get(info, 'error', 0)
+    let error_sign = get(g:, 'coc_status_error_sign', 'E:')
+
+    return (errors > 0 ? error_sign . info['error'] : '')
+  endfunction
+  
+
+  function! CocWarnings()
+    let info = get(b:, 'coc_diagnostic_info', {})
+    let warnings = get(info, 'warning', 0)
+    let warning_sign = get(g:, 'coc_status_warning_sign', 'W:')
+
+    return (warnings > 0 ? warning_sign . info['warning'] : '')
+  endfunction
+
+  function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+  endfunction
+
+  function! DevIconsFileType()
+    return WebDevIconsGetFileTypeSymbol()
+  endfunction
+
+  function! DevIconsFileFormat()
+    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+  endfunction
+
+  function! LightlineFilename()
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+    let modified = &modified ? ' +' : ''
+    return DevIconsFileType() . ' ' . filename . modified
+  endfunction
+
+  function! BranchName()
+    return FugitiveHead() . ' ' 
+  endfunction
+
+  let g:lightline = {
+  \ 'colorscheme': 'oceanicnext',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'gitbranch', 'currentfunction', 'filename' ] ],
+  \   'right': [ [ 'coc_errors', 'coc_warnings', 'lineinfo' ],
+  \              [ 'percent' ],
+  \              [  'fileformat', 'fileencoding' ] ]
+  \ },
+  \ 'tabline': {
+  \   'left': [ ['buffers'] ],
+  \   'right': [ ['close'] ]
+  \ },
+  \ 'component_expand': {
+  \   'coc_errors': 'CocErrors',
+  \   'coc_warnings': 'CocWarnings',
+  \   'buffers': 'lightline#bufferline#buffers'
+  \ },
+  \ 'component_type': {
+  \   'buffers': 'tabsel',
+  \   'coc_errors': 'error',
+  \   'coc_warnings': 'warning'
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'BranchName',
+  \   'currentfunction': 'CocCurrentFunction',
+  \   'filetype': 'DevIconsFileType',
+  \   'fileformat': 'DevIconsFileFormat',
+  \   'filename': 'LightlineFilename'
+  \ },
+\ }
+
+  autocmd User CocDiagnosticChange call lightline#update()
+
 call plug#begin('~/vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
@@ -290,6 +331,7 @@ call plug#begin('~/vim/plugged')
   Plug 'alvan/vim-closetag'
   Plug 'scrooloose/nerdtree'
   Plug 'itchyny/lightline.vim'
+  Plug 'mengelbrecht/lightline-bufferline'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'janko-m/vim-test'
