@@ -49,10 +49,6 @@ let mapleader="\<Space>"   " map <leader> to spacebar
 " turn off search highlight
 nnoremap <silent> <leader>hc :nohlsearch <CR>
 
-" insert / normal mode toggling with capslock, considering caps remaped to esc
-" in system configuration
-nnoremap <Esc> i
-
 " buffer keymapping
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprevious<CR>
