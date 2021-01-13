@@ -41,3 +41,5 @@
         untracked = blue
 [push]
 	default = simple
+[pull]
+	rebase = false
