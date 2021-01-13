@@ -124,7 +124,7 @@ let NERDTreeMapChangeRoot='Z'
   nmap <silent> <leader>cgt <Plug>(coc-type-definition)
   nmap <silent> <leader>cgi <Plug>(coc-implementation)
   nmap <silent> <leader>cgr <Plug>(coc-references)
-  nnoremap <silent> <leader>ca :CocCommand actions.open<CR>
+  nnoremap <silent> <leader>ca <Plug>(coc-codeaction)
   nnoremap <silent> <leader>cx :CocList diagnostics<CR>
   nnoremap <silent> <leader>cl :CocList outline<CR>
   
@@ -376,7 +376,7 @@ call plug#begin('~/vim/plugged')
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
   Plug 'metakirby5/codi.vim'
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'prettier/vim-prettier'
   Plug 'ryanoasis/vim-devicons'
   Plug 'luochen1990/rainbow'
