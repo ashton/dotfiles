@@ -1,4 +1,6 @@
 {
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["typescript"],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
