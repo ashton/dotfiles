@@ -14,15 +14,12 @@
         "elmTestPath": "elm-test"
       }
     },
-    "clojure-lsp": {
-      "command": "bash",
-      "args": ["-c", "clojure-lsp"],
-      "filetypes": ["clojure"],
-      "rootPatterns": ["project.clj"],
-      "additionalSchemes": ["jar", "zipfile"],
-      "trace.server": "verbose",
-      "initializationOptions": {
-      }
+    "rescript":{
+      "enable": true,
+      "module": "~/vim/plugged/vim-rescript/rescript-vscode/extension/server/out/server.js",
+      "args": ["--node-ipc"],
+      "filetypes": ["rescript"],
+      "rootPatterns": ["bsconfig.json"]
     }
   }
 }
