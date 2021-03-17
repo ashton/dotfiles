@@ -61,7 +61,7 @@ nnoremap <leader>bb :CocList buffers<CR>
 " nerdtree keymap
 nnoremap \ :NERDTreeToggle<CR>
 nnoremap <leader>op :NERDTreeToggle<CR>
-nnoremap <D-\> :NERDTreeFind<CR>
+nnoremap <M-\> :NERDTreeFind<CR>
 nnoremap <leader>oP :NERDTreeFind<CR>
 
 let NERDTreeMapOpenSplit='s'
@@ -388,6 +388,7 @@ call plug#begin('~/vim/plugged')
   " Language plugins
   Plug 'sheerun/vim-polyglot'
   Plug 'joaohkfaria/vim-jest-snippets'
+  Plug 'rescript-lang/vim-rescript'
 
   " Themes
    Plug 'arcticicestudio/nord-vim'
