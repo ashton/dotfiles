@@ -70,6 +70,10 @@ let NERDTreeMapCloseDir='c'
 let NERDTreeMapCloseChildren='C'
 let NERDTreeMapChangeRoot='Z'
 
+let s:light_blue = "A7D8D8"
+let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreeExtensionHighlightColor['elm'] = s:light_blue " sets the color of css files to ligt_blue
+
   " FZF keymapping
   nnoremap <leader><leader> :Files<CR>
   nnoremap <leader>sp :Ag 
@@ -360,7 +364,6 @@ nmap <Leader>b8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>b9 <Plug>lightline#bufferline#go(9)
 
 
-
 call plug#begin('~/vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
@@ -379,6 +382,7 @@ call plug#begin('~/vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'prettier/vim-prettier'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'luochen1990/rainbow'
   Plug 'qpkorr/vim-bufkill'
   Plug 'neomake/neomake'
