@@ -180,7 +180,7 @@ let g:NERDTreeExtensionHighlightColor['elm'] = s:light_blue " sets the color of 
   let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
   let g:coc_snippet_next = '<TAB>'
   let g:coc_snippet_prev = '<S-TAB>'
-  let g:coc_node_path = '~/.asdf/shims/node'
+  let g:coc_node_path = '~/.asdf-data/shims/node'
 
   let g:coc_status_error_sign = '✖ '
   let g:coc_status_warning_sign = '⚠  '
