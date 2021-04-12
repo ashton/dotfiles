@@ -369,7 +369,7 @@ nmap <Leader>b8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>b9 <Plug>lightline#bufferline#go(9)
 
 
-call plug#begin('~/vim/plugged')
+call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
   Plug 'jiangmiao/auto-pairs'
