@@ -1,0 +1,8 @@
+export DEFAULT_USER="$(whoami)"
+
+export GREP_COLOR="4;33"
+export CLICOLOR="auto"
+
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+export EDITOR=$(which vim)
