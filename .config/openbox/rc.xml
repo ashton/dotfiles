@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
   <resistance>
     <strength>10</strength>
@@ -40,7 +41,7 @@
   </placement>
   <theme>
     <name>Arc-Dark</name>
-    <titleLayout>DSLIMC</titleLayout>
+    <titleLayout>CMIDL</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -180,81 +181,6 @@
         <command>openbox --reconfigure</command>
       </action>
     </keybind>
-    <keybind key="W-KP_1">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>-0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_2">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>-0</y>
-        <width>100%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_3">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>-0</x>
-        <y>-0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_4">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>100%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_5">
-      <action name="MaximizeFull"/>
-    </keybind>
-    <keybind key="W-KP_6">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>-0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>100%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_7">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_8">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <width>100%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-    <keybind key="W-KP_9">
-      <action name="UnmaximizeFull"/>
-      <action name="MoveResizeTo">
-        <x>-0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
     <keybind key="C-A-Right">
       <action name="DesktopRight"/>
     </keybind>
@@ -311,11 +237,6 @@
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
     </keybind>
-    <keybind key="A-space">
-      <action name="ShowMenu">
-        <menu>client-menu</menu>
-      </action>
-    </keybind>
     <keybind key="XF86AudioStop">
       <action name="Execute">
         <command>playerctl pause</command>
@@ -361,7 +282,7 @@
         <command>xfce4-screenshooter</command>
       </action>
     </keybind>
-    <keybind key="A-F2">
+    <keybind key="A-space">
       <action name="Execute">
         <command>xfce4-appfinder --collapsed</command>
         <startupnotify>
@@ -380,7 +301,7 @@
         <command>dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'</command>
       </action>
     </keybind>
-    <keybind key="A-F4">
+    <keybind key="A-q">
       <action name="Close"/>
     </keybind>
     <keybind key="A-F5">
@@ -395,17 +316,9 @@
     <keybind key="W-d">
       <action name="ToggleShowDesktop"/>
     </keybind>
-    <keybind key="W-b">
-      <action name="ToggleDecorations"/>
-    </keybind>
     <keybind key="W-f">
       <action name="Execute">
         <command>exo-open --launch FileManager</command>
-      </action>
-    </keybind>
-    <keybind key="W-t">
-      <action name="Execute">
-        <command>urxvt</command>
       </action>
     </keybind>
     <keybind key="W-c">
@@ -413,7 +326,7 @@
         <command>conky-toggle</command>
       </action>
     </keybind>
-    <keybind key="C-A-Return">
+    <keybind key="W-t">
       <action name="Execute">
         <command>exo-open --launch TerminalEmulator</command>
       </action>
@@ -423,42 +336,12 @@
         <command>exo-open --launch WebBrowser</command>
       </action>
     </keybind>
-    <keybind key="C-A-k">
+    <keybind key="C-A-q">
       <action name="Execute">
         <command>arcolinux-logout</command>
       </action>
     </keybind>
     <keybind key="C-A-l">
-      <action name="Execute">
-        <command>arcolinux-logout</command>
-      </action>
-    </keybind>
-    <keybind key="W-e">
-      <action name="Execute">
-        <command>geany</command>
-      </action>
-    </keybind>
-    <keybind key="W-m">
-      <action name="Execute">
-        <command>pragha</command>
-      </action>
-    </keybind>
-    <keybind key="W-h">
-      <action name="Execute">
-        <command>urxvt -T 'htop task manager' -e htop</command>
-      </action>
-    </keybind>
-    <keybind key="W-v">
-      <action name="Execute">
-        <command>pavucontrol</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-u">
-      <action name="Execute">
-        <command>pavucontrol</command>
-      </action>
-    </keybind>
-    <keybind key="W-x">
       <action name="Execute">
         <command>arcolinux-logout</command>
       </action>
@@ -523,131 +406,29 @@
         <width>50%</width>
       </action>
     </keybind>
-    <keybind key="A-r">
-      <action name="Resize"/>
-    </keybind>
-    <keybind key="A-m">
-      <action name="Move"/>
-    </keybind>
-    <keybind key="A-t">
-      <action name="Execute">
-        <command>variety -t</command>
-      </action>
-    </keybind>
-    <keybind key="A-f">
-      <action name="Execute">
-        <command>variety -f</command>
-      </action>
-    </keybind>
-    <keybind key="A-p">
-      <action name="Execute">
-        <command>variety -p</command>
-      </action>
-    </keybind>
-    <keybind key="A-Left">
-      <action name="Execute">
-        <command>variety -p</command>
-      </action>
-    </keybind>
-    <keybind key="A-Right">
-      <action name="Execute">
-        <command>variety -n</command>
-      </action>
-    </keybind>
-    <keybind key="A-Down">
-      <action name="Execute">
-        <command>variety --resume</command>
-      </action>
-    </keybind>
-    <keybind key="A-Up">
-      <action name="Execute">
-        <command>variety --pause</command>
-      </action>
-    </keybind>
-    <keybind key="S-W-q">
-      <action name="Close"/>
-    </keybind>
-    <keybind key="W-q">
-      <action name="Close"/>
-    </keybind>
-    <keybind key="W-Return">
-      <action name="Execute">
-        <command>termite</command>
-      </action>
-    </keybind>
     <keybind key="S-W-Return">
       <action name="Execute">
         <command>thunar</command>
       </action>
     </keybind>
-    <keybind key="W-F1">
+    <keybind key="W-Return">
       <action name="Execute">
-        <command>exo-open --launch webbrowser</command>
-      </action>
-    </keybind>
-    <keybind key="W-F2">
-      <action name="Execute">
-        <command>subl3</command>
-      </action>
-    </keybind>
-    <keybind key="W-F3">
-      <action name="Execute">
-        <command>inkscape</command>
-      </action>
-    </keybind>
-    <keybind key="W-F4">
-      <action name="Execute">
-        <command>gimp</command>
-      </action>
-    </keybind>
-    <keybind key="W-F5">
-      <action name="Execute">
-        <command>meld</command>
-      </action>
-    </keybind>
-    <keybind key="W-F6">
-      <action name="Execute">
-        <command>vlc</command>
-      </action>
-    </keybind>
-    <keybind key="W-F7">
-      <action name="Execute">
-        <command>virtualbox</command>
-      </action>
-    </keybind>
-    <keybind key="W-F8">
-      <action name="Execute">
-        <command>thunar</command>
-      </action>
-    </keybind>
-    <keybind key="W-F9">
-      <action name="Execute">
-        <command>evolution</command>
-      </action>
-    </keybind>
-    <keybind key="W-F10">
-      <action name="Execute">
-        <command>spotify</command>
+        <command>exo-open --launch TerminalEmulator</command>
       </action>
     </keybind>
     <keybind key="W-F11">
       <action name="Execute">
-        <command>rofi -show run -fullscreen -font &quot;Noto Sans 13&quot;</command>
+        <command>rofi -show run -fullscreen -font "Noto Sans 13"</command>
       </action>
     </keybind>
     <keybind key="W-F12">
       <action name="Execute">
-        <command>rofi -show run -font &quot;Noto Sans 13&quot;</command>
+        <command>rofi -show run -font "Noto Sans 13"</command>
       </action>
     </keybind>
     <keybind key="C-S-Escape">
       <action name="Execute">
         <command>xfce4-taskmanager</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-q">
-      <action name="ShowMenu">
-        <menu>root-menu</menu>
       </action>
     </keybind>
     <keybind key="C-A-m">
@@ -660,119 +441,9 @@
         <command>rofi-theme-selector</command>
       </action>
     </keybind>
-    <keybind key="C-A-j">
-      <action name="Execute">
-        <command>obmenu3</command>
-      </action>
-      <action name="MaximizeFull"/>
-    </keybind>
-    <keybind key="W-k">
-      <action name="Execute">
-        <command>obkey</command>
-      </action>
-      <action name="MaximizeFull"/>
-    </keybind>
-    <keybind key="C-A-a">
-      <action name="Execute">
-        <command>xfce4-appfinder</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-T">
-      <action name="Execute">
-        <command>termite</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-d">
-      <action name="ToggleShowDesktop"/>
-    </keybind>
-    <keybind key="C-A-V">
-      <action name="Execute">
-        <command>vivaldi-stable</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-B">
-      <action name="Execute">
-        <command>thunar</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-W">
-      <action name="Execute">
-        <command>arcolinux-welcome-app</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-E">
-      <action name="Execute">
-        <command>arcolinux-tweak-tool</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-S">
-      <action name="Execute">
-        <command>spotify</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-C">
-      <action name="Execute">
-        <command>catfish</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-i">
-      <action name="Execute">
-        <command>nitrogen</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-o">
-      <action name="Execute">
-        <command>sh ~/.config/openbox/scripts/picom-toggle.sh</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-y">
-      <action name="Execute">
-        <command>obconf</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-F">
-      <action name="Execute">
-        <command>firefox</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-G">
-      <action name="Execute">
-        <command>chromium</command>
-      </action>
-    </keybind>
     <keybind key="C-A-p">
       <action name="Execute">
         <command>pamac-manager</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-KP_8">
-      <action name="Execute">
-        <command>conky-rotate -n</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-KP_2">
-      <action name="Execute">
-        <command>conky-rotate -p</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-KP_Next">
-      <action name="Execute">
-        <command>conky-rotate -n</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-KP_Prior">
-      <action name="Execute">
-        <command>conky-rotate -p</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-Next">
-      <action name="Execute">
-        <command>conky-rotate -n</command>
-      </action>
-    </keybind>
-    <keybind key="C-A-Prior">
-      <action name="Execute">
-        <command>conky-rotate -p</command>
       </action>
     </keybind>
   </keyboard>
