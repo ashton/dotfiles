@@ -763,7 +763,7 @@ key_bindings:
   - { key: Key7,     mods: Alt,       chars: "\x02\x37" }
   - { key: Key8,     mods: Alt,       chars: "\x02\x38" }
   - { key: Key9,     mods: Alt,       chars: "\x02\x39" }
-  - { key: Return,   mods: Alt|Shift, chars: "\x06\x7a"  }
+  - { key: Return,   mods: Alt|Shift, chars: "\x02\x7a"  }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
   #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
