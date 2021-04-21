@@ -79,3 +79,51 @@
 (add-hook 'typescript-mode-local-vars-hook
           (lambda ()
             (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
+
+;; Key Mappings
+(map! :map clojure-mode-map
+      :nvm "W" #'sp-next-sexp)
+
+(map! :map clojure-mode-map
+      :nvm "B" #'sp-previous-sexp)
+
+(map! :map clojure-mode-map
+      :nvm "E" #'sp-end-of-sexp)
+
+(map! :map clojure-mode-map
+      :desc "Add a new line after the end of the expression"
+      :n "s-o" (cmd! (progn
+                       (sp-end-of-sexp) (sp-newline))))
+
+(map! :map clojure-mode-map
+      :nv "gj" #'sp-down-sexp)
+
+(map! :map clojure-mode-map
+      :nv "gk" #'sp-backward-up-sexp)
+
+(map! :map clojure-mode-map
+      :nv "gy" #'sp-copy-sexp)
+
+(map! :map clojure-mode-map
+      :nv "dd" #'sp-kill-whole-line)
+
+(map! :map clojure-mode-map
+      :nv ">)" #'sp-forward-slurp-sexp)
+
+(map! :map clojure-mode-map
+      :nv ">(" #'sp-backward-barf-sexp)
+
+(map! :map clojure-mode-map
+      :nv "<)" #'sp-forward-barf-sexp)
+
+(map! :map clojure-mode-map
+      :nv "<(" #'sp-backwards-slurp-sexp)
+
+(map! :map clojure-mode-map
+      :nv "|" #'sp-split-sexp)
+
+(map! :map clojure-mode-map
+      :nv "s-(" #'sp-wrap-round)
+
+(map! :map clojure-mode-map
+      :nv "s-[" #'sp-wrap-square)
