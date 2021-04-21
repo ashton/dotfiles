@@ -26,6 +26,9 @@
 	pc = push origin HEAD
 [color]
         ui = auto
+	diff = auto
+	status = auto
+	branch = auto
 [color "branch"]
         current = yellow reverse
         local = yellow
@@ -43,3 +46,10 @@
 	default = simple
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	smudge = git-lfs smudge --skip %f
+	process = git-lfs filter-process --skip
+	clean = git-lfs clean -- %f
+	required = True
