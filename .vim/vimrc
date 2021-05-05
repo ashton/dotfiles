@@ -46,6 +46,15 @@ set nowritebackup
 set wildignore+=**/node_modules/**,**/deps/** " please don't search in node_modules black hole
 set hidden  " allows to change buffer without saving it
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 let mapleader="\<Space>"   " map <leader> to spacebar
 
 " turn off search highlight
@@ -116,6 +125,16 @@ let g:NERDTreeExtensionHighlightColor['elm'] = s:light_blue " sets the color of 
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
+    else
+      execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+  endfunction
+
   " Remap for rename current word
   nmap <leader>cr <Plug>(coc-rename)
   nmap <leader>cR <Plug>(coc-refactor)
@@ -128,9 +147,10 @@ let g:NERDTreeExtensionHighlightColor['elm'] = s:light_blue " sets the color of 
   nmap <silent> <leader>cgt <Plug>(coc-type-definition)
   nmap <silent> <leader>cgi <Plug>(coc-implementation)
   nmap <silent> <leader>cgr <Plug>(coc-references)
-  nnoremap <silent> <leader>ca <Plug>(coc-codeaction)
+  nmap <leader>ca <Plug>(coc-codeaction)
   nnoremap <silent> <leader>cx :CocList diagnostics<CR>
   nnoremap <silent> <leader>cl :CocList outline<CR>
+  nnoremap <silent> <leader>ck :call <SID>show_documentation()<CR>
   
 
   " Create mappings for function text object, requires document symbols feature of languageserver.
@@ -151,12 +171,34 @@ let g:NERDTreeExtensionHighlightColor['elm'] = s:light_blue " sets the color of 
   nmap <silent> ]l <Plug>(coc-diagnostic-next)
 
   " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  " Coc only does snippet and additional edit on confirm.
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  endif
 
+  " Make <CR> auto-select the first completion item and notify coc.nvim to
+  " format on enter, <cr> could be remapped by other vim plugin
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  augroup end
 
   " FZF configuration
   " configuring fzf :Files command to start in vim's current directory
@@ -443,6 +485,7 @@ let g:which_key_map.c.q = 'run-quick-fix'
 let g:which_key_map.c.R = 'coc-refactor-var'
 let g:which_key_map.c.r = 'rename-var'
 let g:which_key_map.c.x = 'list-diagnostics'
+let g:which_key_map.c.k = 'show-documentation'
 
 let g:which_key_map.c.f = { 'name': '+format' }
 let g:which_key_map.c.f.b = 'prettier-format-current-buffer'
