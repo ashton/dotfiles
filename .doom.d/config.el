@@ -2,6 +2,11 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
+(let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
+  (when (file-directory-p nudev-emacs-path)
+    (add-to-list 'load-path nudev-emacs-path)
+    (require 'nu nil t)
+    (require 'nu-datomic-query nil t)))
 
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
