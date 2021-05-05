@@ -8,6 +8,7 @@
     (require 'nu nil t)
     (require 'nu-datomic-query nil t)))
 
+(setq comp-deferred-compilation t)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
