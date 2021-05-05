@@ -4,6 +4,8 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+set guifont=JetBrainsMono\ Nerd\ Font:h14
+
 set nocompatible
 set tabstop=2       " number of visual spaces per TAB
 set softtabstop=2   " number of spaces in tab when editing
