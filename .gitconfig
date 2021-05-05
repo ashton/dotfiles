@@ -1,8 +1,9 @@
 [user]
 	name = Matheus Ashton Silva
-	email = matheusashton@gmail.com
+	email = matheus.ashton@nubank.com.br
+	signingkey = E16AE000FDAD8F73
 [core]
-	excludesfile = $HOME/.gitignore_global
+	excludesfile = /Users/matheus.ashton/.gitignore
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -53,3 +54,7 @@
 	process = git-lfs filter-process --skip
 	clean = git-lfs clean -- %f
 	required = True
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[commit]
+	gpgsign = true
