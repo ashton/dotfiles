@@ -86,50 +86,128 @@
           (lambda ()
             (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
 
-;; Key Mappings
-(map! :map clojure-mode-map
-      :nvm "W" #'sp-next-sexp)
+(setq lispyville-key-theme
+        '((operators normal)
+          c-w
+          (prettify insert)
+          (text-objects normal)
+          (atom-movement t)
+          slurp/barf-lispy
+          additional
+          additional-insert
+          additional-wrap))
 
-(map! :map clojure-mode-map
-      :nvm "B" #'sp-previous-sexp)
+ (after! lispyville
+   (map! :map lispy-mode-map-lispy "[" nil))
 
-(map! :map clojure-mode-map
-      :nvm "E" #'sp-end-of-sexp)
+ (after! lispyville
+   (map! :map lispy-mode-map-lispy "]" nil))
 
-(map! :map clojure-mode-map
-      :desc "Add a new line after the end of the expression"
-      :n "s-o" (cmd! (progn
-                       (sp-end-of-sexp) (sp-newline))))
 
-(map! :map clojure-mode-map
-      :nv "gj" #'sp-down-sexp)
+(after! clojure-mode
+  (define-clojure-indent
+    (defroutes 'defun)
+    (GET 2)
+    (POST 2)
+    (PUT 2)
+    (DELETE 2)
+    (HEAD 2)
+    (ANY 2)
+    (OPTIONS 2)
+    (PATCH 2)
+    (rfn 2)
+    (let-routes 1)
+    (context 2)))
+;; ;; Key Mappings
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nvm "W" #'sp-next-sexp)
 
-(map! :map clojure-mode-map
-      :nv "gk" #'sp-backward-up-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nvm "B" #'sp-previous-sexp)
 
-(map! :map clojure-mode-map
-      :nv "gy" #'sp-copy-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nvm "E" #'sp-end-of-sexp)
 
-(map! :map clojure-mode-map
-      :nv "dd" #'sp-kill-whole-line)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :desc "Add a new line after the end of the expression"
+;;       :n "s-o" (cmd! (progn
+;;                        (sp-end-of-sexp) (sp-newline))))
 
-(map! :map clojure-mode-map
-      :nv ">)" #'sp-forward-slurp-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix ("s" . "slurp"))
 
-(map! :map clojure-mode-map
-      :nv ">(" #'sp-backward-barf-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix ("b" . "barf"))
 
-(map! :map clojure-mode-map
-      :nv "<)" #'sp-forward-barf-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix ("k" . "kill"))
 
-(map! :map clojure-mode-map
-      :nv "<(" #'sp-backwards-slurp-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nv "gj" #'sp-down-sexp)
 
-(map! :map clojure-mode-map
-      :nv "|" #'sp-split-sexp)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nv "gk" #'sp-backward-up-sexp)
 
-(map! :map clojure-mode-map
-      :nv "s-(" #'sp-wrap-round)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nv "gy" #'sp-copy-sexp)
 
-(map! :map clojure-mode-map
-      :nv "s-[" #'sp-wrap-square)
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix "k"
+;;       :desc "kill the whole line" "l" #'sp-kill-whole-line)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix "s"
+;;       :desc "slurps next expression" "n" #'sp-forward-slurp-sexp)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix "s"
+;;       :desc "slurps previous expression" "p" #'sp-backwards-slurp-sexp)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix "b"
+;;       :desc "barfs first expression" "f" #'sp-backward-barf-sexp)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix "b"
+;;       :desc "barfs last expression" "l" #'sp-forward-barf-sexp)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nv "|" #'sp-split-sexp)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nv "s-(" #'sp-wrap-round)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :nv "s-[" #'sp-wrap-square)
+
+;; (map! :after clojure-mode
+;;       :map clojure-mode-map
+;;       :localleader
+;;       :prefix "e"
+;;       :desc "evaluate sexp at point" "f" #'cider-eval-sexp-at-point)
