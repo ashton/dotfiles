@@ -64,7 +64,7 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; Configuring root folder for Projectile to search projects
-(setq projectile-project-search-path '("~/dev/" "~/dev/pessoal"))
+(setq projectile-project-search-path '("~/dev/nu" "~/dev/pessoal"))
 
 ;; Treemacs theme
 (after! doom-themes
