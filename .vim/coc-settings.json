@@ -41,9 +41,9 @@
         "elmTestPath": "elm-test"
       }
     },
-    "rescript":{
+    "rescript": {
       "enable": true,
-      "module": "~/vim/plugged/vim-rescript/rescript-vscode/extension/server/out/server.js",
+      "module": "/Users/matheus.ashton/vim/plugged/vim-rescript/rescript-vscode/extension/server/out/server.js",
       "args": ["--node-ipc"],
       "filetypes": ["rescript"],
       "rootPatterns": ["bsconfig.json"]
