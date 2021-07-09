@@ -2,13 +2,7 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-(let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
-  (when (file-directory-p nudev-emacs-path)
-    (add-to-list 'load-path nudev-emacs-path)
-    (require 'nu nil t)
-    (require 'nu-datomic-query nil t)))
 
-(setq comp-deferred-compilation t)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -30,15 +24,16 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-; (setq doom-theme 'doom-oceanic-next)
+                                        ; (setq doom-theme 'doom-oceanic-next)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/texts")
+(setq org-directory "~/Documents/org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+
 
 ;; Indentation levels
 (setq typescript-indent-level 2)
@@ -59,26 +54,33 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+(load! "nu")
 
 ;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; Configuring root folder for Projectile to search projects
-(setq projectile-project-search-path '("~/dev/nu" "~/dev/pessoal"))
+(setq projectile-project-search-path '("~/dev/nu" "~/dev/pessoal" "~/dev/nu/mini-meta-repo/packages"))
+(setq frame-title-format (setq icon-title-format  ;; set window title with "project"
+                               '((:eval (projectile-project-name)))))
 
 ;; Treemacs theme
 (after! doom-themes
   (setq doom-themes-treemacs-theme "doom-colors"))
 
 (after! dtrt-indent
- (add-to-list 'dtrt-indent-hook-mapping-list '(typescript-mode javascript typescript-indent-level)))
+  (add-to-list 'dtrt-indent-hook-mapping-list '(typescript-mode javascript typescript-indent-level)))
 
-;; Ignoring .gitignore files / dirs
+;; Treemacs - Ignoring .gitignore files / dirs
 (setq treemacs-python-executable "/usr/bin/python3")
 (after! treemacs
   (treemacs-git-mode 'extended)
   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
 
+
+(setq +format-on-save-enabled-modes '(dart-mode))
+
+;; Typescript
 (add-hook 'typescript-mode-local-vars-hook
           (lambda ()
             (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)))
@@ -87,25 +89,49 @@
             (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
 
 (setq lispyville-key-theme
-        '((operators normal)
-          c-w
-          (prettify insert)
-          (text-objects normal)
-          (atom-movement t)
-          slurp/barf-lispy
-          additional
-          additional-insert
-          additional-wrap))
+      '((operators normal)
+        c-w
+        (prettify insert)
+        (text-objects normal)
+        (atom-movement t)
+        slurp/barf-lispy
+        additional
+        additional-insert
+        additional-wrap))
 
- (after! lispyville
-   (map! :map lispy-mode-map-lispy "[" nil))
+(after! lispyville
+  (map! :map lispy-mode-map-lispy "[" nil))
 
- (after! lispyville
-   (map! :map lispy-mode-map-lispy "]" nil))
-
+(after! lispyville
+  (map! :map lispy-mode-map-lispy "]" nil))
 
 (after! clojure-mode
   (define-clojure-indent
+    (against-background 'defun)
+    (alet 'defun)
+    (as-> 1)
+    (as-customer 1)
+    (as-of 1)
+    (constraint-fn 'defun)
+    (data-fn 'defun)
+    (defflow 'defun)
+    (defflow-loopback-false 'defun)
+    (fact 'defun)
+    (facts 'defun)
+    (flow 'defun)
+    (flow-mx 'defun)
+    (for-all 'defun)
+    (future-fact 'defun)
+    (let-entities 'defun)
+    (log-messages 'defun)
+    (match? 'defun)
+    (mlet 'defun)
+    (provided 'defun)
+    (providing 'defun)
+    (request-context 'defun)
+    (tabular 'defun)
+    (tabular-flow 'defun)
+    (verify 'defun)
     (defroutes 'defun)
     (GET 2)
     (POST 2)
@@ -118,96 +144,57 @@
     (rfn 2)
     (let-routes 1)
     (context 2)))
-;; ;; Key Mappings
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nvm "W" #'sp-next-sexp)
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nvm "B" #'sp-previous-sexp)
+(use-package! clojure-mode
+  :config
+  (setq clojure-indent-style 'align-arguments
+        clojure-thread-all-but-last t
+        yas-minor-mode 1))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nvm "E" #'sp-end-of-sexp)
+(use-package! lsp-treemacs
+  :config
+  (setq lsp-treemacs-error-list-current-project-only t))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :desc "Add a new line after the end of the expression"
-;;       :n "s-o" (cmd! (progn
-;;                        (sp-end-of-sexp) (sp-newline))))
+(use-package! lsp-ui
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-peek-list-width 60
+        lsp-ui-doc-max-width 60
+        lsp-ui-peek-fontify 'always
+        lsp-ui-sideline-show-code-actions nil))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix ("s" . "slurp"))
+(after! projectile
+  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix ("b" . "barf"))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix ("k" . "kill"))
+(add-hook! cider-mode (add-to-list 'cider-test-defining-forms "defflow"))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nv "gj" #'sp-down-sexp)
+(defadvice! fix-lookup-handlers (ret)
+  :filter-return '(+lsp-lookup-references-handler +lsp-lookup-definition-handler)
+  (when ret 'deferred))
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nv "gk" #'sp-backward-up-sexp)
+(map! :after centaur-tabs-mode
+      :map centaur-tabs-mode-map
+      :n "gt" 'centaur-tabs-forward)
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nv "gy" #'sp-copy-sexp)
+(map! :after centaur-tabs-mode
+      :map centaur-tabs-mode-map
+      :n "]t" 'centaur-tabs-forward)
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix "k"
-;;       :desc "kill the whole line" "l" #'sp-kill-whole-line)
+(map! :after centaur-tabs-mode
+      :map centaur-tabs-mode-map
+      :n "[t" 'centaur-tabs-backward)
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix "s"
-;;       :desc "slurps next expression" "n" #'sp-forward-slurp-sexp)
+(map! :after centaur-tabs-mode
+      :map centaur-tabs-mode-map
+      :n "gT" 'centaur-tabs-backward)
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix "s"
-;;       :desc "slurps previous expression" "p" #'sp-backwards-slurp-sexp)
+(map! :after lsp-mode
+      :map lsp-mode-map
+      :n "gd" 'lsp-find-definition)
 
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix "b"
-;;       :desc "barfs first expression" "f" #'sp-backward-barf-sexp)
-
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix "b"
-;;       :desc "barfs last expression" "l" #'sp-forward-barf-sexp)
-
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nv "|" #'sp-split-sexp)
-
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nv "s-(" #'sp-wrap-round)
-
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :nv "s-[" #'sp-wrap-square)
-
-;; (map! :after clojure-mode
-;;       :map clojure-mode-map
-;;       :localleader
-;;       :prefix "e"
-;;       :desc "evaluate sexp at point" "f" #'cider-eval-sexp-at-point)
+(map! :after lsp-mode
+      :map lsp-mode-map
+      :n "gD" 'lsp-find-references)
