@@ -38,6 +38,8 @@ local global_options = {
   writebackup = false,
 
   hidden = true,
+
+  mouse = 'a'
 }
 
 local window_options = {

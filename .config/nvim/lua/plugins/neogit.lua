@@ -1,3 +1,8 @@
 local neogit = require 'neogit'
 
-neogit.setup {}
+neogit.setup {
+  signs = {
+    section = {'', ''},
+    item = {'', ''}
+  }
+}
