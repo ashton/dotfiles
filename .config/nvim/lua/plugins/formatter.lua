@@ -16,7 +16,7 @@ formatter.setup {
       function ()
         return {
           exe = 'elm-format',
-          args = {vim.api.nvim_buf_get_name(0), '--stdin', '--yes'}
+          args = {vim.api.nvim_buf_get_name(0), '--stdin', '--yes'},
           stdin = true
         }
       end
@@ -25,8 +25,8 @@ formatter.setup {
     lua = {
       function ()
         return {
-          exe = 'luafmt'
-          args = {'--indent-count', 2, '--stdin'}
+          exe = 'luafmt',
+          args = {'--indent-count', 2, '--stdin'},
           stdin = true
         }
       end
