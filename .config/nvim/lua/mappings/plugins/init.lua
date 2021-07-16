@@ -1,7 +1,20 @@
-require 'mappings/plugins/nvim-tree'
-require 'mappings/plugins/vim-test'
-require 'mappings/plugins/barbar'
-require 'mappings/plugins/telescope'
 require 'mappings/plugins/compe'
-require 'mappings/plugins/lsp-saga'
-require 'mappings/plugins/neogit'
+local utils = require 'utils'
+
+local nvim_tree_mappings = require 'mappings/plugins/nvim-tree'
+local vim_test_mappings = require 'mappings/plugins/vim-test'
+local barbar_mappings = require 'mappings/plugins/barbar'
+local telesecope_mappings = require 'mappings/plugins/telescope'
+local lsp_saga_mappings = require 'mappings/plugins/lsp-saga'
+local neogit_mappings = require 'mappings/plugins/neogit'
+
+local mappings = utils.merge_tables(
+  nvim_tree_mappings,
+  vim_test_mappings,
+  barbar_mappings,
+  telesecope_mappings,
+  lsp_saga_mappings,
+  neogit_mappings
+)
+
+return mappings;

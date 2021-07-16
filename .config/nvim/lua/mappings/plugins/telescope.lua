@@ -1,9 +1,19 @@
-require 'nvim_utils'
+local leader_mappings = {
+  ['leader'] = {':Telescope find_files <CR>', 'find file'},
+  f = {
+    name = '+files',
+    p = {':Telescope find_files<CR>', 'find file'},
+  },
 
-local mappings = {
-  ['n<leader>fp'] = {':Telescope find_files<CR>', silent = true, noremap = true},
-  ['n<leader>sp'] = {':Telescope live_grep<CR>', silent = true, noremap = true},
-  ['n<leader>bb'] = {':Telescope buffers<CR>', silent = true, noremap = true},
+  s = {
+    name = '+search',
+    p = {':Telescope live_grep<CR>', 'search in project'}
+  },
+
+  b = {
+    name = '+buffers',
+    b = {':Telescope buffers<CR>', 'list buffers'},
+  }
 }
 
-nvim_apply_mappings(mappings)
+return {['leader'] = leader_mappings}

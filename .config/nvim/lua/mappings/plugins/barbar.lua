@@ -1,20 +1,33 @@
-require 'nvim_utils'
-
-local mappings = {
-  ['n]b'] = {':BufferNext<CR>', silent = true, noremap = true},
-  ['n[b'] = {':BufferPrevious<CR>', silent = true, noremap = true},
-  ['n<leader>b1'] = {':BufferGoto 1<CR>', silent = true, noremap = true},
-  ['n<leader>b2'] = {':BufferGoto 2<CR>', silent = true, noremap = true},
-  ['n<leader>b3'] = {':BufferGoto 3<CR>', silent = true, noremap = true},
-  ['n<leader>b4'] = {':BufferGoto 4<CR>', silent = true, noremap = true},
-  ['n<leader>b5'] = {':BufferGoto 5<CR>', silent = true, noremap = true},
-  ['n<leader>b6'] = {':BufferGoto 6<CR>', silent = true, noremap = true},
-  ['n<leader>b7'] = {':BufferGoto 7<CR>', silent = true, noremap = true},
-  ['n<leader>b8'] = {':BufferGoto 8<CR>', silent = true, noremap = true},
-  ['n<leader>b9'] = {':BufferGoto 9<CR>', silent = true, noremap = true},
-  ['n<leader>b0'] = {':BufferGoto 10<CR>', silent = true, noremap = true},
-  ['n<leader>bd'] = {':BufferClose<CR>', silent = true, noremap = true},
-  ['n<leader>bo'] = {':BufferCloseAllButCurrent<CR>', silent = true, noremap = true},
+local leader_mappings = {
+  b = {
+    ['name'] = '+buffers',
+    ['1'] = {':BufferGoto 1<CR>', 'go to buffer 1'},
+    ['2'] = {':BufferGoto 2<CR>', 'go to buffer 2'},
+    ['3'] = {':BufferGoto 3<CR>', 'go to buffer 3'},
+    ['4'] = {':BufferGoto 4<CR>', 'go to buffer 4'},
+    ['5'] = {':BufferGoto 5<CR>', 'go to buffer 5'},
+    ['6'] = {':BufferGoto 6<CR>', 'go to buffer 6'},
+    ['7'] = {':BufferGoto 7<CR>', 'go to buffer 7'},
+    ['8'] = {':BufferGoto 8<CR>', 'go to buffer 8'},
+    ['9'] = {':BufferGoto 9<CR>', 'go to buffer 9'},
+    ['0'] = {':BufferGoto 10<CR>', 'go to buffer 10'},
+    ['d'] = {':BufferClose<CR>', 'close buffer'},
+    ['o'] = {':BufferCloseAllButCurrent<CR>', 'close all but this buffer'},
+  }
 }
 
-nvim_apply_mappings(mappings)
+local next_mappings = {
+    name = '+next',
+    b = {':BufferNext<CR>', 'next buffer'},
+}
+
+local previous_mappings = {
+    name = '+previous',
+    b = {':BufferPrevious<CR>', 'previous buffer'},
+}
+
+return {
+  ['leader'] = leader_mappings,
+  ['['] = previous_mappings,
+  [']'] = next_mappings
+}

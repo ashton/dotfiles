@@ -1,10 +1,11 @@
-require 'nvim_utils'
-
-local mappings = {
-  ['n<leader>tn'] = {':TestNearest<CR>', silent = true, noremap=true},
-  ['n<leader>tf'] = {':TestFile<CR>', silent = true, noremap=true},
-  ['n<leader>ts'] = {':TestSuite<CR>', silent = true, noremap=true},
-  ['n<leader>tl'] = {':TestLast<CR>', silent = true, noremap=true},
+local leader_mappings = {
+  t = {
+    name = '+test',
+    n = {':TestNearest<CR>', 'test nearest'},
+    f = {':TestFile<CR>', 'test file'},
+    s = {':TestSuite<CR>', 'test suite'},
+    l = {':TestLast<CR>', 'test last'},
+  }
 }
 
-nvim_apply_mappings(mappings)
+return {['leader'] = leader_mappings}

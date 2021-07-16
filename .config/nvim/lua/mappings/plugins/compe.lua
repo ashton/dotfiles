@@ -1,5 +1,3 @@
-local utils = require('nvim_utils')
-
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -41,14 +39,8 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
-
-local mappings = {
-    ["i<C-Space>"] = {"compe#complete()", silent = true, noremap = true, expr = true},
-    ["i<CR>"]      = {"compe#confirm(lexima#expand('<LT>CR>', 'i'))", silent = true, noremap = true, expr = true},
-    ["i<C-e>"]     = {"compe#close('<C-e>')", silent = true, noremap = true, expr = true},
-    ["i<C-j>"]     = {"compe#scroll({ 'delta': +4 })", silent = true, noremap = true, expr = true},
-    ["i<C-k>"]     = {"compe#scroll({ 'delta': -4 })", silent = true, noremap = true, expr = true},
-}
-
-nvim_apply_mappings(mappings)
+vim.api.nvim_set_keymap("i", "<C-Space>","compe#complete()", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<CR>","compe#confirm('<CR>')", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-e>","compe#close('<C-e>')", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-j>","compe#scroll({ 'delta': +4 })", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-k>","compe#scroll({ 'delta': -4 })", {expr = true, silent = true, noremap = true})

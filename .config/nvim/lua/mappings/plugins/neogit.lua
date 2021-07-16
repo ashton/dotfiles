@@ -1,7 +1,9 @@
-require 'nvim_utils'
-
-local mappings = {
-  ['n<leader>gg'] = {':Neogit<CR>', silent = true, noremap = true}
+local leader_mappings = {
+  g = {
+    name = '+git',
+    g = {':Neogit<CR>', 'Neogit'}
+  }
 }
 
-nvim_apply_mappings(mappings)
+
+return {['leader'] = leader_mappings}

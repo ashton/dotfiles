@@ -1,16 +1,40 @@
-require 'nvim_utils'
-
-local mappings = {
-  ['n<leader>ca'] = {':Lspsaga code_action<CR>', silent = true, noremap = true},
-  ['v<leader>ca'] = {':<C-U>Lspsaga range_code_action<CR>', silent = true, noremap = true},
-  ['n<leader>cd'] = {'<Cmd>lua vim.lsp.buf.definition()<CR>', silent = true, noremap = true},
-  ['n<leader>cp'] = {':Lspsaga preview_definition<CR>', silent = true, noremap = true},
-  ['n<leader>cD'] = {':LspTrouble lsp_references', silent = true, noremap = true},
-  ['n<leader>ck'] = {':Lspsaga hover_doc<CR>', silent = true, noremap = true},
-  ['n<leader>cr'] = {':Lspsaga rename<CR>', silent = true, noremap = true},
-  ['n<leader>cx'] = {':LspTrouble lsp_workspace_diagnostics', silent = true, noremap = true},
-  ['n<C-f>'] = {[[<Cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>]], silent = true, noremap = true},
-  ['n<C-b>'] = {[[<Cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>]], silent = true, noremap = true}
+local leader_mappings = {
+  c = {
+    name = '+code',
+    a = {':Lspsaga code_action<CR>', 'code action'},
+    d = {'<Cmd>lua vim.lsp.buf.definition()<CR>', 'go to definition'},
+    p = {':Lspsaga preview_definition<CR>', 'preview definition'},
+    D = {':LspTrouble lsp_references', 'find references'},
+    k = {':Lspsaga hover_doc<CR>', 'documentation'},
+    r = {':Lspsaga rename<CR>', 'rename symbol'},
+    x = {':LspTrouble lsp_workspace_diagnostics', 'lsp diagnostics'},
+  }
 }
 
-nvim_apply_mappings(mappings)
+local goto_mappings = {
+  name = '+goto',
+  d = {'<Cmd>lua vim.lsp.buf.definition()<CR>', 'go to definition'},
+  D = {':LspTrouble lsp_references', 'find references'},
+}
+
+local next_mappings = {
+  name = '+next',
+  e = {[[<Cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]], 'next diagnostic'}
+}
+
+local prev_mappings = {
+  name = '+previous',
+  e = {[[<Cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]], 'previous diagnostic'}
+}
+
+
+vim.api.nvim_set_keymap('v', '<leader>ca',':<C-U>Lspsaga range_code_action<CR>', {silent = true, noremap = true})
+vim.api.nvim_set_keymap('v', '<C-f>',[[<Cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>]], {silent = true, noremap = true})
+vim.api.nvim_set_keymap('v', '<C-b>',[[<Cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>]], {silent = true, noremap = true})
+
+return {
+  ['leader'] = leader_mappings,
+  ['['] = prev_mappings,
+  [']'] = next_mappings,
+  g = goto_mappings
+}

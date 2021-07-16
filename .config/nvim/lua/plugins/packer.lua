@@ -82,7 +82,7 @@ packer.startup(
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
     -- Auto Pairs
-    use 'cohama/lexima.vim'
+    use 'windwp/nvim-autopairs'
     use 'andymass/vim-matchup'
 
     -- Scratchpads
@@ -90,6 +90,11 @@ packer.startup(
 
     -- Snippets
 
+    -- Whichkey
+    use {
+      'AckslD/nvim-whichkey-setup.lua',
+      requires = {'liuchengxu/vim-which-key'},
+    }
 
     -- TODO and such for exploring
     use {
