@@ -64,6 +64,12 @@ packer.startup(
     use 'folke/lsp-colors.nvim' -- colorful diagnostic messages
     -- use 'jubnzv/virtual-types.nvim'
 
+    -- Treesitter
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+
     -- Status and Tab lines
     use 'romgrk/barbar.nvim'
     use {

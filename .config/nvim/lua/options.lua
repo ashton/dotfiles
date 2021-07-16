@@ -47,6 +47,8 @@ local window_options = {
   number = true,
   relativenumber = false,
   cursorline = true,
+  foldmethod = 'expr',
+  foldexpr = 'nvim_treesitter#foldexpr'
 }
 
 local buffer_options = {
