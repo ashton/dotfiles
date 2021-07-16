@@ -1,4 +1,3 @@
-set encoding=UTF-8
 syntax enable
 if (has("termguicolors"))
  set termguicolors

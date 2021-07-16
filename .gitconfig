@@ -54,7 +54,7 @@
 	process = git-lfs filter-process --skip
 	clean = git-lfs clean -- %f
 	required = True
-[url "git@github.com:"]
-	insteadOf = https://github.com/
+[gpg]
+	program = gpg
 [commit]
 	gpgsign = true

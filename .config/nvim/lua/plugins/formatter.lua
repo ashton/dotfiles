@@ -16,7 +16,7 @@ formatter.setup {
       function ()
         return {
           exe = 'elm-format',
-          args = {vim.api.nvim_buf_get_name(0), '--stdin', '--yes'},
+          args = {'--stdin', '--yes'},
           stdin = true
         }
       end

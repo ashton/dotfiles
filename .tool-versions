@@ -1,6 +1,6 @@
-nodejs 12.16.3
+nodejs 15.13.0
 elm 0.19.1
 elixir 1.7.4
 erlang 20.3
-clojure 1.10.1
+clojure 1.10.1.763
 python 3.8.3

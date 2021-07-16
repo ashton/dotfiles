@@ -1,5 +1,5 @@
-require 'plugins'
-require 'options'
-require 'mappings'
-require 'statusline'
-require 'lsp'
+require "options"
+require "plugins"
+require "mappings"
+require "statusline"
+require "lsp"
