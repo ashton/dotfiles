@@ -7,6 +7,7 @@ local barbar_mappings = require 'mappings/plugins/barbar'
 local telesecope_mappings = require 'mappings/plugins/telescope'
 local lsp_saga_mappings = require 'mappings/plugins/lsp-saga'
 local neogit_mappings = require 'mappings/plugins/neogit'
+local debug_mappings = require 'mappings/plugins/dap'
 
 local mappings = utils.merge_tables(
   nvim_tree_mappings,
@@ -14,7 +15,8 @@ local mappings = utils.merge_tables(
   barbar_mappings,
   telesecope_mappings,
   lsp_saga_mappings,
-  neogit_mappings
+  neogit_mappings,
+  debug_mappings
 )
 
 return mappings;
