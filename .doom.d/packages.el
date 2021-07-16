@@ -50,8 +50,9 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 (package! yaml-mode)
-
+ 
+(unpin! hover)
 (unpin! lsp-dart)
 (unpin! lsp-mode)
-; (unpin! lsp-ui)
+(unpin! lsp-ui)
 (unpin! hover)

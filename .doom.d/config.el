@@ -164,7 +164,18 @@
         lsp-ui-peek-fontify 'always
         lsp-ui-sideline-show-code-actions nil))
 
+(use-package! hover
+  :after dart-mode
+  :config
+  (setq hover-hot-reload-on-save t
+        hover-clear-buffer-on-hot-restart t
+        hover-screenshot-path "$HOME/Pictures"))
+
 (after! projectile
+  (projectile-register-project-type 'dart '("pubspec.yaml")
+                                    :project-file "pubspec.yaml"
+                                    :test-suffix "_test"
+                                    :test "dart test")
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
 
@@ -198,3 +209,10 @@
 (map! :after lsp-mode
       :map lsp-mode-map
       :n "gD" 'lsp-find-references)
+
+(plist-put! +ligatures-extra-symbols
+            :true          "⊤"
+            :false         "⊥"
+            :str           "ξ"
+            :bool          "β"
+            :list          "∐")
