@@ -1,10 +1,10 @@
-local util = require 'lspconfig/util'
-local lspconfig = require 'lspconfig'
-local lspinstall = require 'lspinstall'
-local saga = require 'lspsaga'
+local util = require "lspconfig/util"
+local lspconfig = require "lspconfig"
+local lspinstall = require "lspinstall"
+local saga = require "lspsaga"
 
 local function on_attach(client, bufnr)
-  require'lsp_signature'.on_attach()
+  require "lsp_signature".on_attach()
 end
 
 local function make_config()
@@ -12,7 +12,7 @@ local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {'documentation', 'detail', 'additionalTextEdits'},
+    properties = {"documentation", "detail", "additionalTextEdits"}
   }
 
   return {on_attach = on_attach, capabilities = capabilities}
@@ -21,9 +21,9 @@ end
 local function setup_servers()
   local installed_servers = lspinstall.installed_servers()
   local required_servers = {
-    'elm',
-    'lua',
-    'typescript'
+    "elm",
+    "lua",
+    "typescript"
   }
 
   for _, server in pairs(required_servers) do
@@ -43,23 +43,34 @@ end
 
 setup_servers()
 
+local config = make_config()
+config.cmd = {
+  "node",
+  "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/vim-rescript/server/out/server.js",
+  "--stdio"
+}
+
+lspconfig.rescriptls.setup(config)
+
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function ()
+lspinstall.post_install_hook = function()
   setup_servers() -- reload installed servers
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
-saga.init_lsp_saga({
-  error_sign = '',
-  warn_sign = '',
-  infor_sign = '',
-  hint_sign = '',
-  code_action_icon = ' ',
-  code_action_prompt = {enable = false},
-  code_action_prompt = {
-    enable = true,
-    sign = true,
-    sign_priority = 20,
-    virtual_text = true,
-  },
-})
+saga.init_lsp_saga(
+  {
+    error_sign = "",
+    warn_sign = "",
+    infor_sign = "",
+    hint_sign = "",
+    code_action_icon = " ",
+    code_action_prompt = {enable = false},
+    code_action_prompt = {
+      enable = true,
+      sign = true,
+      sign_priority = 20,
+      virtual_text = true
+    }
+  }
+)

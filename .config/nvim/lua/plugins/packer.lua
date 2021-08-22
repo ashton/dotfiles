@@ -70,6 +70,8 @@ packer.startup(
     use "ray-x/lsp_signature.nvim" -- function signature help
     use "folke/lsp-colors.nvim" -- colorful diagnostic messages
     -- use 'jubnzv/virtual-types.nvim'
+    -- until lsp_install supports it:
+    use "rescript-lang/vim-rescript"
 
     -- Treesitter
     use {

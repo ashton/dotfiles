@@ -1,14 +1,24 @@
-vim.g.nvim_tree_ignore = {".pyc", "node_modules", "build", "dist", ".git", "tags", "target", ".bs.js"}
-vim.g.nvim_tree_gitignore = 1
-vim.g.nvim_tree_autoclose = 1
-vim.g.nvim_tree_quit_on_open = 1
-vim.g.nvim_tree_git_hl = 1
+local function setup(opts)
+  for opt, value in pairs(opts) do
+    if type(value) == "boolean" then
+      value = value and 1 or 0
+    end
+    vim.g["nvim_tree_" .. opt] = value
+  end
+end
 
-vim.g.nvim_tree_show_icons = {
-  git = 0,
-  files = 1,
-  folders = 1,
-  folder_arrows = 1
+setup {
+  ignore = {".pyc", "node_modules", "build", "dist", ".git", "tags", "target", ".bs.js"},
+  gitignore = true,
+  autoclose = true,
+  quit_on_open = true,
+  git_hl = true,
+  show_icons = {
+    git = 0,
+    files = 1,
+    folders = 1,
+    folder_arrows = 1
+  }
 }
 
 vim.api.nvim_command("hi NvimTreeGitNew guifg=#9DA3B1")
