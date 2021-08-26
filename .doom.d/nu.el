@@ -7,8 +7,34 @@ Checks if NS is integration fallbacking to cider default check otherwise."
       (cider-test-default-test-ns-fn ns))))
 
 (after! cider
+  (defun nu--cider-ansi-color-string-p (value)
+    "Check for extra ANSI chars on VALUE."
+    (or (string-match "^\\[" value)
+        (string-match "\u001B\\[" value)))
+
+  (defun nu--cider-font-lock-as (mode string)
+    "Use MODE to font-lock the STRING.
+     Copied from cider-util.el, it does the same but doesn't remove
+     string properties"
+    (let ((string (if (cider-ansi-color-string-p string)
+                      (ansi-color-apply string)
+                    string)))
+      (if (or (null cider-font-lock-max-length)
+              (< (length string) cider-font-lock-max-length))
+          (with-current-buffer (cider--make-buffer-for-mode mode)
+            (erase-buffer)
+            (insert string)
+            ;; don't try to font-lock unbalanced Clojure code
+            (when (eq mode 'clojure-mode)
+              (check-parens))
+            (font-lock-fontify-region (point-min) (point-max))
+            (buffer-string))
+        string)))
   (setq cider-test-infer-test-ns #'nu--cider-test-default-with-integration-ns)
-  (setf cider-test-defining-forms (append cider-test-defining-forms '("defflow" "defflow-loopback-false"))))
+  (setf cider-test-defining-forms (append cider-test-defining-forms '("defflow" "defflow-loopback-false")))
+
+  (advice-add 'cider-ansi-color-string-p :override #'nu--cider-ansi-color-string-p)
+  (advice-add 'cider-font-lock-as :override #'nu--cider-font-lock-as))
 
 (use-package! cider
   :after clojure-mode
