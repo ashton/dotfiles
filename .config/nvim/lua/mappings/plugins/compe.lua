@@ -3,12 +3,12 @@ local t = function(str)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
+  local col = vim.fn.col(".") - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+    return true
+  else
+    return false
+  end
 end
 
 -- Use (s-)tab to:
@@ -22,7 +22,7 @@ _G.tab_complete = function()
   elseif check_back_space() then
     return t "<Tab>"
   else
-    return vim.fn['compe#complete']()
+    return vim.fn["compe#complete"]()
   end
 end
 _G.s_tab_complete = function()
@@ -39,8 +39,7 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-Space>","compe#complete()", {expr = true, silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<CR>","compe#confirm('<CR>')", {expr = true, silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-e>","compe#close('<C-e>')", {expr = true, silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-j>","compe#scroll({ 'delta': +4 })", {expr = true, silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-k>","compe#scroll({ 'delta': -4 })", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-j>", "compe#scroll({ 'delta': +4 })", {expr = true, silent = true, noremap = true})
+vim.api.nvim_set_keymap("i", "<C-k>", "compe#scroll({ 'delta': -4 })", {expr = true, silent = true, noremap = true})

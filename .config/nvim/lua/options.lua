@@ -1,45 +1,38 @@
 local global_options = {
   -- gui
   termguicolors = true,
-
   -- tab spacing
   tabstop = 2,
   softtabstop = 2,
   shiftwidth = 2,
   expandtab = true,
   smarttab = true,
-
   -- ui
   showmatch = true,
   laststatus = 2, -- always
   showtabline = 2, -- always
-  shortmess = 'filnxtToOFc',
+  shortmess = "filnxtToOFc",
   cmdheight = 2,
   showmode = false,
   wildmenu = true,
   lazyredraw = true,
   updatetime = 300,
   timeoutlen = 500,
-  signcolumn = 'number',
-
+  signcolumn = "auto",
   --splits
   splitbelow = true,
   splitright = true,
-
   -- search
   incsearch = true,
   hlsearch = true,
   ignorecase = true,
   smartcase = true,
-
   -- backupfiles
-  directory = '/tmp',
+  directory = "/tmp",
   backup = false,
   writebackup = false,
-
   hidden = true,
-
-  mouse = 'a'
+  mouse = "a"
 }
 
 local window_options = {
@@ -47,8 +40,8 @@ local window_options = {
   number = true,
   relativenumber = false,
   cursorline = true,
-  foldmethod = 'expr',
-  foldexpr = 'nvim_treesitter#foldexpr'
+  foldmethod = "expr",
+  foldexpr = "nvim_treesitter#foldexpr"
 }
 
 local buffer_options = {
@@ -56,7 +49,7 @@ local buffer_options = {
   tabstop = 2,
   softtabstop = 2,
   shiftwidth = 2,
-  expandtab = true,
+  expandtab = true
 }
 
 for name, value in pairs(global_options) do

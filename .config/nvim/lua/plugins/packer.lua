@@ -100,6 +100,7 @@ packer.startup(
     -- Auto Pairs
     use "windwp/nvim-autopairs"
     use "andymass/vim-matchup"
+    use "alvan/vim-closetag"
 
     -- Scratchpads
     use "metakirby5/codi.vim"
