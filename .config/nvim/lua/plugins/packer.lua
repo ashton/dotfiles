@@ -57,7 +57,11 @@ packer.startup(
     }
 
     -- completion
-    use "hrsh7th/nvim-compe"
+    use "hrsh7th/cmp-cmdline"
+    use "hrsh7th/cmp-path"
+    use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-nvim-lsp"
+    use "hrsh7th/nvim-cmp"
 
     -- LSP
     use "neovim/nvim-lspconfig"
@@ -106,6 +110,9 @@ packer.startup(
     use "metakirby5/codi.vim"
 
     -- Snippets
+    use "dcampos/nvim-snippy"
+    use "honza/vim-snippets"
+    use "dcampos/cmp-snippy"
 
     -- Whichkey
     use "folke/which-key.nvim"

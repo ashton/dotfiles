@@ -8,8 +8,9 @@ local function on_attach(client, bufnr)
 end
 
 local function make_config()
+  local cmp = require "cmp_nvim_lsp"
   --Enable (broadcasting) snippet capability for completion
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {"documentation", "detail", "additionalTextEdits"}
