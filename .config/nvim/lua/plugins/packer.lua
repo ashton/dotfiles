@@ -67,11 +67,10 @@ packer.startup(
     use "neovim/nvim-lspconfig"
     use "kabouzeid/nvim-lspinstall"
     use "nvim-lua/lsp-status.nvim" -- for statusline
-    use "glepnir/lspsaga.nvim"
-    use "RishabhRD/popfix"
-    use "RishabhRD/nvim-lsputils" -- better lsp actions
+    -- use {"RishabhRD/nvim-lsputils", requires = {"RishabhRD/popfix"}} -- better lsp actions
+    use {"tami5/lspsaga.nvim", branch = "nvim51"}
     use "onsails/lspkind-nvim" -- completion symbols like vscode
-    use "ray-x/lsp_signature.nvim" -- function signature help
+    -- use "ray-x/lsp_signature.nvim" -- function signature help
     use "folke/lsp-colors.nvim" -- colorful diagnostic messages
     -- use 'jubnzv/virtual-types.nvim'
     -- until lsp_install supports it:

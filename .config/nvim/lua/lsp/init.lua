@@ -3,10 +3,6 @@ local lspconfig = require "lspconfig"
 local lspinstall = require "lspinstall"
 local saga = require "lspsaga"
 
-local function on_attach(client, bufnr)
-  require "lsp_signature".on_attach()
-end
-
 local function make_config()
   local cmp = require "cmp_nvim_lsp"
   --Enable (broadcasting) snippet capability for completion
@@ -16,7 +12,7 @@ local function make_config()
     properties = {"documentation", "detail", "additionalTextEdits"}
   }
 
-  return {on_attach = on_attach, capabilities = capabilities}
+  return {capabilities = capabilities}
 end
 
 local function setup_servers()
@@ -59,13 +55,20 @@ lspinstall.post_install_hook = function()
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
+local signs = {Error = " ", Warning = " ", Hint = " ", Information = " "}
+
+for type, icon in pairs(signs) do
+  local hl = "LspDiagnosticsSign" .. type
+  vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
+
 saga.init_lsp_saga(
   {
     error_sign = "",
     warn_sign = "",
     infor_sign = "",
     hint_sign = "",
-    code_action_icon = " ",
+    code_action_icon = "",
     code_action_prompt = {enable = false},
     code_action_prompt = {
       enable = true,

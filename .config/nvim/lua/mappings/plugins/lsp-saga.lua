@@ -2,12 +2,13 @@ local leader_mappings = {
   c = {
     name = "+code",
     a = {"<cmd>Lspsaga code_action<CR>", "code action"},
-    d = {"<Cmd>lua vim.lsp.buf.definition()<CR>", "go to definition"},
-    p = {"<cmd>Lspsaga preview_definition<CR>", "preview definition"},
+    d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition"},
     D = {"<cmd>LspTrouble lsp_references", "find references"},
-    k = {"<cmd>Lspsaga hover_doc<CR>", "documentation"},
+    h = {"<cmd>Lspsaga hover_doc<CR>", "documentation"},
+    p = {"<cmd>Lspsaga preview_definition<CR>", "preview definition"},
     r = {"<cmd>Lspsaga rename<CR>", "rename symbol"},
-    x = {"<cmd>LspTrouble lsp_workspace_diagnostics", "lsp diagnostics"}
+    x = {"<cmd>Lspsaga show_line_diagnosticts<CR>"},
+    X = {"<cmd>LspTrouble lsp_workspace_diagnostics<CR>", "workspace diagnostics"}
   }
 }
 
