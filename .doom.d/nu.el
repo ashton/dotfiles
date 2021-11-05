@@ -15,7 +15,8 @@ Checks if NS is integration fallbacking to cider default check otherwise."
   (defun nu--cider-font-lock-as (mode string)
     "Use MODE to font-lock the STRING.
      Copied from cider-util.el, it does the same but doesn't remove
-     string properties"
+     string properties and doesn't check for valid clojure-code,
+     fixing matcher-combinators assertions."
     (let ((string (if (cider-ansi-color-string-p string)
                       (ansi-color-apply string)
                     string)))
@@ -24,14 +25,13 @@ Checks if NS is integration fallbacking to cider default check otherwise."
           (with-current-buffer (cider--make-buffer-for-mode mode)
             (erase-buffer)
             (insert string)
-            ;; don't try to font-lock unbalanced Clojure code
-            (when (eq mode 'clojure-mode)
-              (check-parens))
             (font-lock-fontify-region (point-min) (point-max))
             (buffer-string))
         string)))
   (setq cider-test-infer-test-ns #'nu--cider-test-default-with-integration-ns)
-  (setf cider-test-defining-forms (append cider-test-defining-forms '("defflow" "defflow-loopback-false")))
+  (setf cider-test-defining-forms (append cider-test-defining-forms '("defflow"
+                                                                      "defflow-loopback-false"
+                                                                      "defflow-new-system!")))
 
   (advice-add 'cider-ansi-color-string-p :override #'nu--cider-ansi-color-string-p)
   (advice-add 'cider-font-lock-as :override #'nu--cider-font-lock-as))
