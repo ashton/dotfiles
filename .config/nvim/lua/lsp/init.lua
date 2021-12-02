@@ -1,6 +1,6 @@
 local util = require "lspconfig/util"
 local lspconfig = require "lspconfig"
-local lspinstall = require "lspinstall"
+local lsp_installer_servers = "nvim-lsp-installer.servers"
 local saga = require "lspsaga"
 
 local function make_config()
@@ -16,49 +16,50 @@ local function make_config()
 end
 
 local function setup_servers()
-  local installed_servers = lspinstall.installed_servers()
   local required_servers = {
-    "elm",
-    "lua",
-    "typescript"
+    elmls,
+    sumneko_lua,
+    tsserver,
+    hls
   }
 
   for _, server in pairs(required_servers) do
-    if not vim.tbl_contains(installed_servers, server) then
-      lspinstall.install_server(server)
+    lspconfig[server].setup(make_config())
+
+    local server_available, requested_server = lsp_installer_servers.get_server(server)
+    if server_available then
+      if not requested_server:is_installed() then
+        -- Queue the server to be installed
+        requested_server:install()
+      end
+
+      requested_server:on_ready(
+        function()
+          requested_server:setup(make_config())
+        end
+      )
     end
   end
+end
 
-  lspinstall.setup()
-  installed_servers = lspinstall.installed_servers()
-
-  for _, server in pairs(installed_servers) do
-    local config = make_config()
-    lspconfig[server].setup(config)
-  end
+-- until lsp_installer supports it
+local function setup_rescript()
+  local config = make_config()
+  config.cmd = {
+    "node",
+    "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/vim-rescript/server/out/server.js",
+    "--stdio"
+  }
+  lspconfig.rescriptls.setup(config)
 end
 
 setup_servers()
-
-local config = make_config()
-config.cmd = {
-  "node",
-  "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/vim-rescript/server/out/server.js",
-  "--stdio"
-}
-
-lspconfig.rescriptls.setup(config)
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+setup_rescript()
 
 local signs = {Error = " ", Warning = " ", Hint = " ", Information = " "}
 
 for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
 end
 
@@ -69,7 +70,6 @@ saga.init_lsp_saga(
     infor_sign = "",
     hint_sign = "",
     code_action_icon = "",
-    code_action_prompt = {enable = false},
     code_action_prompt = {
       enable = true,
       sign = true,
