@@ -1,6 +1,7 @@
 local util = require "lspconfig/util"
 local lspconfig = require "lspconfig"
-local lsp_installer_servers = "nvim-lsp-installer.servers"
+local lsp_installer = require("nvim-lsp-installer")
+local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local saga = require "lspsaga"
 
 local function make_config()
@@ -17,10 +18,10 @@ end
 
 local function setup_servers()
   local required_servers = {
-    elmls,
-    sumneko_lua,
-    tsserver,
-    hls
+    "elmls",
+    "sumneko_lua",
+    "tsserver",
+    "hls"
   }
 
   for _, server in pairs(required_servers) do
