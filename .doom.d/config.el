@@ -19,8 +19,9 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 16))
-
+;;(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 16))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
+(setq doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -54,7 +55,13 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
-(load! "nu")
+;; (load! "nu")
+
+(let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
+  (when (file-directory-p nudev-emacs-path)
+    (add-to-list 'load-path nudev-emacs-path)
+    (require 'nu nil t)
+    (require 'nu-datomic-query nil t)))
 
 ;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -209,10 +216,3 @@
 (map! :after lsp-mode
       :map lsp-mode-map
       :n "gD" 'lsp-find-references)
-
-(plist-put! +ligatures-extra-symbols
-            :true          "⊤"
-            :false         "⊥"
-            :str           "ξ"
-            :bool          "β"
-            :list          "∐")
