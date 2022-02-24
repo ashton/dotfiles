@@ -87,8 +87,7 @@ packer.startup(
     -- Status and Tab lines
     use "romgrk/barbar.nvim"
     use {
-      "glepnir/galaxyline.nvim",
-      branch = "main",
+      "NTBBloodbath/galaxyline.nvim",
       config = function()
         require "statusline"
       end,
@@ -100,7 +99,14 @@ packer.startup(
 
     -- Git
     use {"TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim"}
-    use {"lewis6991/gitsigns.nvim", requires = {"nvim-lua/plenary.nvim"}}
+
+    use {
+      "lewis6991/gitsigns.nvim",
+      tag = "release",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      }
+    }
 
     -- Auto Pairs
     use "windwp/nvim-autopairs"

@@ -1,5 +1,6 @@
 local cmp = require "cmp"
 local snippy = require "snippy"
+local lsp_kind = require "lspkind"
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -8,6 +9,12 @@ end
 
 cmp.setup(
   {
+    formatting = {
+      format = lsp_kind.cmp_format({
+        mode = 'symbol',
+        maxwidth = 50,
+      })
+    },
     snippet = {
       expand = function(args)
         snippy.expand_snippet(args.body)
