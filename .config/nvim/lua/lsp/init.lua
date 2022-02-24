@@ -21,7 +21,8 @@ local function setup_servers()
     "elmls",
     "sumneko_lua",
     "tsserver",
-    "hls"
+    "hls",
+    "rust_analyzer"
   }
 
   for _, server in pairs(required_servers) do
