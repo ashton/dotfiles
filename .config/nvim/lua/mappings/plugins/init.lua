@@ -1,4 +1,3 @@
-require "mappings/plugins/compe"
 local utils = require "utils"
 
 local nvim_tree_mappings = require "mappings/plugins/nvim-tree"

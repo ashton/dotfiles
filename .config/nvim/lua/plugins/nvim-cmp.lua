@@ -10,10 +10,12 @@ end
 cmp.setup(
   {
     formatting = {
-      format = lsp_kind.cmp_format({
-        mode = 'symbol',
-        maxwidth = 50,
-      })
+      format = lsp_kind.cmp_format(
+        {
+          mode = "symbol",
+          maxwidth = 50
+        }
+      )
     },
     snippet = {
       expand = function(args)
@@ -61,7 +63,8 @@ cmp.setup(
     },
     sources = cmp.config.sources(
       {
-        {name = "nvim_lsp"}
+        {name = "nvim_lsp"},
+        {name = "snippy"}
       },
       {
         {name = "buffer"}

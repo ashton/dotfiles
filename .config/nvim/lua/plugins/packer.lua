@@ -70,7 +70,7 @@ packer.startup(
     }
     use "nvim-lua/lsp-status.nvim" -- for statusline
     -- use {"RishabhRD/nvim-lsputils", requires = {"RishabhRD/popfix"}} -- better lsp actions
-    use {"tami5/lspsaga.nvim"}
+    use {"tami5/lspsaga.nvim", branch = "nvim6.0"}
     use "onsails/lspkind-nvim" -- completion symbols like vscode
     -- use "ray-x/lsp_signature.nvim" -- function signature help
     use "folke/lsp-colors.nvim" -- colorful diagnostic messages

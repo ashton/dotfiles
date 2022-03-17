@@ -7,7 +7,7 @@ local leader_mappings = {
     h = {"<cmd>Lspsaga hover_doc<CR>", "documentation"},
     p = {"<cmd>Lspsaga preview_definition<CR>", "preview definition"},
     r = {"<cmd>Lspsaga rename<CR>", "rename symbol"},
-    x = {"<cmd>Lspsaga show_line_diagnosticts<CR>"},
+    x = {"<cmd>Lspsaga show_line_diagnostics<cr>", "line diagnostics"},
     X = {"<cmd>LspTrouble lsp_workspace_diagnostics<CR>", "workspace diagnostics"}
   }
 }
@@ -20,12 +20,12 @@ local goto_mappings = {
 
 local next_mappings = {
   name = "+next",
-  e = {[[<Cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]], "next diagnostic"}
+  e = {"<cmd>Lspsaga diagnostic_jump_next<cr>", "next diagnostic"}
 }
 
 local prev_mappings = {
   name = "+previous",
-  e = {[[<Cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]], "previous diagnostic"}
+  e = {"<cmd>Lspsaga diagnostic_jump_prev<cr>", "previous diagnostic"}
 }
 
 vim.api.nvim_set_keymap("v", "<leader>ca", ":<C-U>Lspsaga range_code_action<CR>", {silent = true, noremap = true})
