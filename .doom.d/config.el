@@ -5,96 +5,74 @@
 
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
+;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Matheus Ashton Silva"
       user-mail-address "matheusashton@gmail.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
+;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;; - `doom-font' -- the primary font to use
+;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
+;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;;(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 16))
+;; See 'C-h v doom-font' for documentation and more examples of what they
+;; accept. For example:
+;;
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 (setq doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
+;;
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
+;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+;; refresh your font settings. If Emacs still can't find your font, it likely
+;; wasn't installed correctly. Font issues are rarely Doom issues!
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-                                        ; (setq doom-theme 'doom-oceanic-next)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/org")
+(setq doom-theme 'doom-ayu-mirage)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/Documents/org")
+(setq org-agenda-files "~/Documents/org/todo.org")
 
-;; Indentation levels
-(setq typescript-indent-level 2)
 
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
-;; they are implemented.
-;; (load! "nu")
-
+;; Nubank config for emacs
 (let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
-  (when (file-directory-p nudev-emacs-path)
-    (add-to-list 'load-path nudev-emacs-path)
-    (require 'nu nil t)
-    (require 'nu-datomic-query nil t)))
+   (when (file-directory-p nudev-emacs-path)
+     (add-to-list 'load-path nudev-emacs-path)
+     (require 'nu nil t)
+     (require 'nu-datomic-query nil t)))
 
 ;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-;; Configuring root folder for Projectile to search projects
-(setq projectile-project-search-path '("~/dev/nu" "~/dev/pessoal" "~/dev/nu/mini-meta-repo/packages"))
-(setq frame-title-format (setq icon-title-format  ;; set window title with "project"
+;;Projectile config
+(setq projectile-project-search-path '("~/dev/nu/")
+      projectile-enable-caching      nil
+      frame-title-format (setq icon-title-format  ;; set window title with "project"
                                '((:eval (projectile-project-name)))))
 
-;; Treemacs theme
-(after! doom-themes
-  (setq doom-themes-treemacs-theme "doom-colors"))
-
-(after! dtrt-indent
-  (add-to-list 'dtrt-indent-hook-mapping-list '(typescript-mode javascript typescript-indent-level)))
-
 ;; Treemacs - Ignoring .gitignore files / dirs
-(setq treemacs-python-executable "/usr/bin/python3")
-(after! treemacs
-  (treemacs-git-mode 'extended)
-  (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
+ (setq treemacs-python-executable "/usr/bin/python3")
+ (after! treemacs
+   (treemacs-git-mode 'extended)
+   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
 
 
+;; Dart format on save
 (setq +format-on-save-enabled-modes '(dart-mode))
 
-;; Typescript
-(add-hook 'typescript-mode-local-vars-hook
-          (lambda ()
-            (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)))
-(add-hook 'typescript-mode-local-vars-hook
-          (lambda ()
-            (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
-
+;; Lispyville config
 (setq lispyville-key-theme
       '((operators normal)
         c-w
@@ -112,64 +90,16 @@
 (after! lispyville
   (map! :map lispy-mode-map-lispy "]" nil))
 
-(after! clojure-mode
-  (define-clojure-indent
-    (against-background 'defun)
-    (alet 'defun)
-    (as-> 1)
-    (as-customer 1)
-    (as-of 1)
-    (constraint-fn 'defun)
-    (data-fn 'defun)
-    (defflow 'defun)
-    (defflow-loopback-false 'defun)
-    (fact 'defun)
-    (facts 'defun)
-    (flow 'defun)
-    (flow-mx 'defun)
-    (for-all 'defun)
-    (future-fact 'defun)
-    (let-entities 'defun)
-    (log-messages 'defun)
-    (match? 'defun)
-    (mlet 'defun)
-    (provided 'defun)
-    (providing 'defun)
-    (request-context 'defun)
-    (tabular 'defun)
-    (tabular-flow 'defun)
-    (verify 'defun)
-    (defroutes 'defun)
-    (GET 2)
-    (POST 2)
-    (PUT 2)
-    (DELETE 2)
-    (HEAD 2)
-    (ANY 2)
-    (OPTIONS 2)
-    (PATCH 2)
-    (rfn 2)
-    (let-routes 1)
-    (context 2)))
-
-(use-package! clojure-mode
+(use-package! lsp-mode
+  :commands lsp
   :config
-  (setq clojure-indent-style 'align-arguments
-        clojure-thread-all-but-last t
-        yas-minor-mode 1))
+  (setq lsp-semantic-tokens-enable t)
+  (add-hook 'lsp-after-apply-edits-hook (lambda (&rest _) (save-buffer))))
 
 (use-package! lsp-treemacs
   :config
   (setq lsp-treemacs-error-list-current-project-only t))
 
-(use-package! lsp-ui
-  :after lsp-mode
-  :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-peek-list-width 60
-        lsp-ui-doc-max-width 60
-        lsp-ui-peek-fontify 'always
-        lsp-ui-sideline-show-code-actions nil))
 
 (use-package! hover
   :after dart-mode
@@ -186,12 +116,7 @@
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
 
-
-(add-hook! cider-mode (add-to-list 'cider-test-defining-forms "defflow"))
-
-(defadvice! fix-lookup-handlers (ret)
-  :filter-return '(+lsp-lookup-references-handler +lsp-lookup-definition-handler)
-  (when ret 'deferred))
+;;Keybindings
 
 (map! :after centaur-tabs-mode
       :map centaur-tabs-mode-map
@@ -216,3 +141,38 @@
 (map! :after lsp-mode
       :map lsp-mode-map
       :n "gD" 'lsp-find-references)
+
+(map! :map org-mode-map
+      :n "M-RET" 'org-open-at-point)
+
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
