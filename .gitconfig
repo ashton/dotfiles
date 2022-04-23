@@ -4,9 +4,7 @@
 	signingkey = E16AE000FDAD8F73
 [core]
 	excludesfile = /Users/matheus.ashton/.gitignore
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  pager = diff-so-fancy | less -FXRi
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -26,7 +24,7 @@
 	tags = tag -l --sort=-v:refname
 	pc = push origin HEAD
 [color]
-        ui = auto
+  ui = auto
 	diff = auto
 	status = auto
 	branch = auto
