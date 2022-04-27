@@ -77,6 +77,12 @@ packer.startup(
     -- use 'jubnzv/virtual-types.nvim'
     -- until lsp_install supports it:
     use "rescript-lang/vim-rescript"
+    use {
+      "rmagatti/goto-preview",
+      config = function()
+        require 'plugins/goto-preview'.setup()
+      end
+    }
 
     -- Treesitter
     use {
@@ -86,13 +92,8 @@ packer.startup(
 
     -- Status and Tab lines
     use "romgrk/barbar.nvim"
-    use {
-      "NTBBloodbath/galaxyline.nvim",
-      config = function()
-        require "statusline"
-      end,
-      requires = {"kyazdani42/nvim-web-devicons", opt = true}
-    }
+    use 'feline-nvim/feline.nvim'
+    use "nvim-lualine/lualine.nvim"
 
     -- File tree
     use {"kyazdani42/nvim-tree.lua", requires = {"kyazdani42/nvim-web-devicons"}}
@@ -144,5 +145,8 @@ packer.startup(
     -- debugging
     use "mfussenegger/nvim-dap"
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+
+    -- colorschemes
+    use "Shatur/neovim-ayu"
   end
 )

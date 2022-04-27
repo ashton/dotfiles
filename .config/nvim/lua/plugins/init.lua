@@ -1,4 +1,5 @@
 require "plugins/packer"
+require "plugins/colorscheme"
 require "plugins/autopairs"
 require "plugins/nvim-tree"
 require "plugins/vim-test"
@@ -13,3 +14,5 @@ require "plugins/dap-ui"
 require "plugins/lightspeed"
 require "plugins/which-key"
 require "plugins/vim-closetag"
+require "plugins/feline"
+-- require("plugins/lualine")
