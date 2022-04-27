@@ -1,3 +1,5 @@
+setopt incappendhistory
+
 ### sources from other configs
 source ~/.zshenv
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

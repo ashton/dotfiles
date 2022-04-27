@@ -1,3 +1,5 @@
 alias cfg="dotbare"
 alias cfgs="dotbare fstat"
 alias cat="bat"
+alias vim="nvim"
+alias v="vim"
