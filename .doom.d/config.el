@@ -45,13 +45,16 @@
 (setq org-directory "~/Documents/org")
 (setq org-agenda-files "~/Documents/org/todo.org")
 
+(setq cider-prefer-local-resources t)
 
 ;; Nubank config for emacs
 (let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
    (when (file-directory-p nudev-emacs-path)
      (add-to-list 'load-path nudev-emacs-path)
      (require 'nu nil t)
-     (require 'nu-datomic-query nil t)))
+     (require 'nu-datomic-query nil t)
+     (use-package isa
+	     :load-path "~/dev/nu/isa.el")))
 
 ;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
