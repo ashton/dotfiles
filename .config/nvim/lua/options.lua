@@ -1,6 +1,7 @@
 local global_options = {
   -- gui
   termguicolors = true,
+  background = "dark",
   -- tab spacing
   tabstop = 2,
   softtabstop = 2,
@@ -35,13 +36,16 @@ local global_options = {
   mouse = "a"
 }
 
+vim.g.ayucolor = "mirage"
+vim.cmd [[colorscheme ayu]]
+
 local window_options = {
   -- ui
   number = true,
   relativenumber = false,
   cursorline = true,
   foldmethod = "expr",
-  foldexpr = "nvim_treesitter#foldexpr"
+  foldexpr = "nvim_treesitter#foldexpr()"
 }
 
 local buffer_options = {
@@ -64,7 +68,3 @@ for name, value in pairs(buffer_options) do
   vim.bo[name] = value
 end
 
-vim.cmd [[
-syntax enable
-colorscheme OceanicNext
-]]

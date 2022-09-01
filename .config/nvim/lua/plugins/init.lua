@@ -1,5 +1,4 @@
 require "plugins/packer"
-require "plugins/colorscheme"
 require "plugins/autopairs"
 require "plugins/nvim-tree"
 require "plugins/vim-test"

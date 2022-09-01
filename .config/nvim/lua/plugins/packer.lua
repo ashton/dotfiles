@@ -147,6 +147,10 @@ packer.startup(
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
 
     -- colorschemes
-    use "Shatur/neovim-ayu"
+    use "Luxed/ayu-vim"
+    use "luisiacc/gruvbox-baby"
+    use "rebelot/kanagawa.nvim"
+    use "rmehri01/onenord.nvim"
+    use "glepnir/zephyr-nvim"
   end
 )

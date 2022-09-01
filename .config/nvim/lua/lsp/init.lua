@@ -22,7 +22,8 @@ local function setup_servers()
     "sumneko_lua",
     "tsserver",
     "hls",
-    "rust_analyzer"
+    "rust_analyzer",
+    "svelte"
   }
 
   for _, server in pairs(required_servers) do
