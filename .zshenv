@@ -1,5 +1,5 @@
 export ASDF_DATA_DIR="/Users/matheus.ashton/.asdf-data"
-export GO_PATH="$HOME/go"
+export GOPATH="$HOME/go"
 export NVM_DIR="$HOME/.nvm"
 export GPG_TTY=$(tty)
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
@@ -8,4 +8,4 @@ export FZF_DEFAULT_COMMAND='rg'
 export ZPLUG_HOME=/usr/local/opt/zplug
 export DOTBARE_DIR="$HOME/.cfg"
 export DOTBARE_TREE="$HOME"
-export PATH="$PATH:~/.emacs.d/bin/"
+export PATH="$PATH:~/.emacs.d/bin/:$GOPATH/bin"
