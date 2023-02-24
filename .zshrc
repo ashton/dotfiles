@@ -6,7 +6,7 @@ source ~/.zshenv
 # [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
 [ -f /Users/john/.travis/travis.sh ] && source /Users/john/.travis/travis.sh
 source ~/.nurc
-source "$HOME/.cargo/env"
+#source "$HOME/.cargo/env"
 
 source /usr/local/opt/zinit/zinit.zsh
 

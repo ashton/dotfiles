@@ -7,7 +7,7 @@ local saga = require "lspsaga"
 local function make_config()
   local cmp = require "cmp_nvim_lsp"
   --Enable (broadcasting) snippet capability for completion
-  local capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {"documentation", "detail", "additionalTextEdits"}
@@ -23,7 +23,8 @@ local function setup_servers()
     "tsserver",
     "hls",
     "rust_analyzer",
-    "svelte"
+    "svelte",
+    "elixirls"
   }
 
   for _, server in pairs(required_servers) do

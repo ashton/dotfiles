@@ -6,7 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Matheus Ashton Silva"
+(setq user-full-name "Matheus Ashton"
       user-mail-address "matheusashton@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
@@ -25,7 +25,7 @@
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 (setq doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
-;;
+
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
@@ -45,137 +45,62 @@
 (setq org-directory "~/Documents/org")
 (setq org-agenda-files "~/Documents/org/todo.org")
 
-(setq cider-prefer-local-resources t)
-
-;; Nubank config for emacs
-(let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
-   (when (file-directory-p nudev-emacs-path)
-     (add-to-list 'load-path nudev-emacs-path)
-     (require 'nu nil t)
-     (require 'nu-datomic-query nil t)
-     (use-package isa
-	     :load-path "~/dev/nu/isa.el")))
-
 ;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-;;Projectile config
-(setq projectile-project-search-path '("~/dev/nu/")
-      projectile-enable-caching      nil
-      frame-title-format (setq icon-title-format  ;; set window title with "project"
-                               '((:eval (projectile-project-name)))))
+(setq read-process-output-max (* 1024 1024)
+      projectile-project-search-path '("~/dev/pessoal")
+      project-enable-caching nil
 
-;; Treemacs - Ignoring .gitignore files / dirs
- (setq treemacs-python-executable "/usr/bin/python3")
- (after! treemacs
-   (treemacs-git-mode 'extended)
-   (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
+      evil-split-window-below t
+      evil-vsplit-window-right t
+      +format-on-save-enabled-modes '(dart-mode))
 
+(add-to-list 'auto-mode-alist '("\\.repl\\'" . clojure-mode))
 
-;; Dart format on save
-(setq +format-on-save-enabled-modes '(dart-mode))
-
-;; Lispyville config
-(setq lispyville-key-theme
-      '((operators normal)
-        c-w
-        (prettify insert)
-        (text-objects normal)
-        (atom-movement t)
-        slurp/barf-lispy
-        additional
-        additional-insert
-        additional-wrap))
-
-(after! lispyville
-  (map! :map lispy-mode-map-lispy "[" nil))
-
-(after! lispyville
-  (map! :map lispy-mode-map-lispy "]" nil))
-
+;; LSP config
 (use-package! lsp-mode
   :commands lsp
   :config
-  (setq lsp-semantic-tokens-enable t)
-  (add-hook 'lsp-after-apply-edits-hook (lambda (&rest _) (save-buffer))))
+  (setq lsp-semantic-tokens-enable t))
 
 (use-package! lsp-treemacs
   :config
   (setq lsp-treemacs-error-list-current-project-only t))
 
-
-(use-package! hover
-  :after dart-mode
+(use-package! clojure-mode
   :config
-  (setq hover-hot-reload-on-save t
-        hover-clear-buffer-on-hot-restart t
-        hover-screenshot-path "$HOME/Pictures"))
+  (setq clojure-indent-style 'align-arguments))
+
+(use-package! clj-refactor
+  :after clojure-mode
+  :config
+  (set-lookup-handlers! 'clj-refactor-mode nil)
+  (setq cljr-add-ns-to-blank-clj-files nil ; use lsp
+        cljr-magic-require-namespaces
+        '(("s"   . "schema.core")
+          ("gen" . "common-test.generators")
+          ("ex" . "common-core.exceptions.core")
+          ("types.money" . "common-core.types.money")
+          ("types.time" . "common-core.types.time")
+          ("types.numeric" . "common-core.types.numeric")
+          ("misc" . "common-core.misc"))))
+
+(use-package! paredit
+  :hook ((clojure-mode . paredit-mode)
+         (emacs-lisp-mode . paredit-mode)))
+
+(use-package! evil-cleverparens
+              :hook ((emacs-lisp-mode . evil-cleverparens-mode)
+                     (clojure-mode . evil-cleverparens-mode)))
+
+(use-package! treemacs-all-the-icons
+  :after treemacs)
 
 (after! projectile
-  (projectile-register-project-type 'dart '("pubspec.yaml")
-                                    :project-file "pubspec.yaml"
-                                    :test-suffix "_test"
-                                    :test "dart test")
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-  (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
+  (add-to-list 'projectile-project-root-files-bottom-up "project.clj"))
 
-;;Keybindings
-
-(map! :after centaur-tabs-mode
-      :map centaur-tabs-mode-map
-      :n "gt" 'centaur-tabs-forward)
-
-(map! :after centaur-tabs-mode
-      :map centaur-tabs-mode-map
-      :n "]t" 'centaur-tabs-forward)
-
-(map! :after centaur-tabs-mode
-      :map centaur-tabs-mode-map
-      :n "[t" 'centaur-tabs-backward)
-
-(map! :after centaur-tabs-mode
-      :map centaur-tabs-mode-map
-      :n "gT" 'centaur-tabs-backward)
-
-(map! :after lsp-mode
-      :map lsp-mode-map
-      :n "gd" 'lsp-find-definition)
-
-(map! :after lsp-mode
-      :map lsp-mode-map
-      :n "gD" 'lsp-find-references)
-
-(map! :map org-mode-map
-      :n "M-RET" 'org-open-at-point)
-
-;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
+(load! "+nubank")
+(load! "+bindings")
