@@ -40,11 +40,6 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/org")
-(setq org-agenda-files "~/Documents/org/todo.org")
-
 ;; Always start maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
@@ -62,6 +57,7 @@
 (use-package! lsp-mode
   :commands lsp
   :config
+  (add-hook 'lsp-after-apply-edits-hook (lambda (&rest _) (save-buffer)))
   (setq lsp-semantic-tokens-enable t))
 
 (use-package! lsp-treemacs
@@ -70,7 +66,9 @@
 
 (use-package! clojure-mode
   :config
-  (setq clojure-indent-style 'align-arguments))
+  (setq clojure-indent-style 'align-arguments)
+  (set-popup-rule! "*cider-test-report*" :side 'right :width 0.4)
+  (set-popup-rule! "^\\*cider-repl" :side 'bottom :quit nil))
 
 (use-package! clj-refactor
   :after clojure-mode
@@ -91,8 +89,8 @@
          (emacs-lisp-mode . paredit-mode)))
 
 (use-package! evil-cleverparens
-              :hook ((emacs-lisp-mode . evil-cleverparens-mode)
-                     (clojure-mode . evil-cleverparens-mode)))
+  :hook ((emacs-lisp-mode . evil-cleverparens-mode)
+         (clojure-mode . evil-cleverparens-mode)))
 
 (use-package! treemacs-all-the-icons
   :after treemacs)
@@ -102,5 +100,56 @@
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
   (add-to-list 'projectile-project-root-files-bottom-up "project.clj"))
 
-(load! "+nubank")
+(add-hook! 'projectile-after-switch-project-hook :append
+  (treemacs-add-and-display-current-project-exclusively)
+  (when (eq (treemacs-current-visibility) 'visible) (treemacs)))
+
+
+(use-package! org
+  :init (setq org-directory "~/org")
+  :config
+  (setq org-hide-emphasis-markers t
+        org-agenda-files '("~/org/todo.org")
+
+        org-capture-templates (doct '(("Personal Todo entry"
+                                       :keys "t"
+                                       :file "~/org/todo.org"
+                                       :headline "Personal")
+                                      ("Task with deadline"
+                                       :keys "T"
+                                       :headline "Personal"
+                                       :file "~/org/todo.org"
+                                       :template "** TODO %? \nDEADLINE: %t\n")))))
+
+(use-package! org-super-agenda
+  :after org-agenda
+  :config
+  (org-super-agenda-mode)
+  (setq org-agenda-custom-commands '(("o" "Overview"
+                                      ((agenda "" ((org-agenda-overriding-header "")
+                                                   (org-agenda-span 1)
+                                                   (org-agenda-start-day "today")
+                                                   (org-agenda-use-time-grid nil)
+                                                   (org-agenda-format-date "")
+                                                   (org-super-agenda-groups
+                                                    '((:name "Hoje"
+                                                       :date today
+                                                       :order 1
+                                                       :discard (:anything))))))
+                                       (agenda "" ((org-agenda-overriding-header "")
+                                                   (org-agenda-compact-blocks t)
+                                                   (org-agenda-start-day "+1d")
+                                                   (org-agenda-span 7)
+                                                   (org-super-agenda-groups
+                                                    '((:name "Semana"
+                                                       :date today
+                                                       :order 2
+                                                       :discard (:anything))))))
+                                       (alltodo "" ((org-agenda-overriding-header "")
+                                                    (org-super-agenda-groups
+                                                     '((:name "Importante"
+                                                        :priority "A"
+                                                        :discard (:anything t)))))))))))
+
 (load! "+bindings")
+(load! "+nubank")

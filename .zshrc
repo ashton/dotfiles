@@ -8,7 +8,9 @@ source ~/.zshenv
 source ~/.nurc
 #source "$HOME/.cargo/env"
 
-source /usr/local/opt/zinit/zinit.zsh
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 ### evals
 # eval "$(rbenv init -)"
@@ -17,6 +19,9 @@ eval $(lending autocomplete:script zsh)
 eval "$(starship init zsh)"
 
 zstyle ':completion:*' menu select
+
+## Avoid vim keybindings in terminal
+bindkey -e
 
 ### Plugins config
   # ytakahashi/igit           \

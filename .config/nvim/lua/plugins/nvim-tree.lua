@@ -1,16 +1,7 @@
 local ntree = require "nvim-tree"
 local tree_cb = require "nvim-tree.config".nvim_tree_callback
-local function vim_global_config_setup(opts)
-  for opt, value in pairs(opts) do
-    if type(value) == "boolean" then
-      value = value and 1 or 0
-    end
-    vim.g["nvim_tree_" .. opt] = value
-  end
-end
 
 ntree.setup {
-  auto_close = true,
   hijack_cursor = true,
   update_focused_file = {
     enable = true
@@ -21,7 +12,12 @@ ntree.setup {
   git = {
     enable = true,
     ignore = true,
-    timout = 500
+    timeout = 500
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true
+    }
   },
   view = {
     mappings = {
@@ -31,18 +27,16 @@ ntree.setup {
         {key = "cf", cb = tree_cb("create")}
       }
     }
-  }
-}
-
-vim_global_config_setup {
-  autoclose = true,
-  quit_on_open = true,
-  git_hl = true,
-  show_icons = {
-    git = 0,
-    files = 1,
-    folders = 1,
-    folder_arrows = 1
+  },
+  renderer = {
+    icons = {
+      show = {
+        file = true,
+        folder = true,
+        git = false,
+        folder_arrow = true
+      }
+    }
   }
 }
 

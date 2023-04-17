@@ -5,9 +5,10 @@
 (package! paredit)
 (package! evil-cleverparens)
 (package! consult-lsp)
+(package! doct)
+(package! org-super-agenda)
 
 (unpin! hover)
-(unpin! treemacs)
 (unpin! lsp-treemacs)
 (unpin! lsp-ui)
 (unpin! lsp-dart)

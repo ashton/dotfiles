@@ -19,7 +19,7 @@ end
 local function setup_servers()
   local required_servers = {
     "elmls",
-    "sumneko_lua",
+    "lua_ls",
     "tsserver",
     "hls",
     "rust_analyzer",
