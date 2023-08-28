@@ -1,8 +1,25 @@
-local util = require "lspconfig/util"
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
+local lsp_format = require("lsp-format")
+
+local default_servers = {
+  "elmls",
+  "lua_ls",
+  "tsserver",
+  --  "hls",
+  "rust_analyzer",
+  "svelte",
+  "elixirls"
+}
+
+mason.setup()
+mason_lspconfig.setup {
+  ensure_installed = default_servers,
+  automatic_installation = true
+}
+lsp_format.setup {}
+
 local lspconfig = require "lspconfig"
-local lsp_installer = require("nvim-lsp-installer")
-local lsp_installer_servers = require("nvim-lsp-installer.servers")
-local saga = require "lspsaga"
 
 local function make_config()
   local cmp = require "cmp_nvim_lsp"
@@ -13,36 +30,14 @@ local function make_config()
     properties = {"documentation", "detail", "additionalTextEdits"}
   }
 
+  on_attach = lsp_format.on_attach
+
   return {capabilities = capabilities}
 end
 
 local function setup_servers()
-  local required_servers = {
-    "elmls",
-    "lua_ls",
-    "tsserver",
-    "hls",
-    "rust_analyzer",
-    "svelte",
-    "elixirls"
-  }
-
-  for _, server in pairs(required_servers) do
+  for _, server in pairs(default_servers) do
     lspconfig[server].setup(make_config())
-
-    local server_available, requested_server = lsp_installer_servers.get_server(server)
-    if server_available then
-      if not requested_server:is_installed() then
-        -- Queue the server to be installed
-        requested_server:install()
-      end
-
-      requested_server:on_ready(
-        function()
-          requested_server:setup(make_config())
-        end
-      )
-    end
   end
 end
 
@@ -60,25 +55,21 @@ end
 setup_servers()
 setup_rescript()
 
+-- Format on save
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+-- vim.api.nvim_create_autocmd(
+--   "BufWritePre",
+--   {
+--     buffer = 0,
+--     callback = function()
+--       vim.lsp.buf.format()
+--     end
+--   }
+-- )
+
 local signs = {Error = " ", Warning = " ", Hint = " ", Information = " "}
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
 end
-
-saga.init_lsp_saga(
-  {
-    error_sign = "",
-    warn_sign = "",
-    infor_sign = "",
-    hint_sign = "",
-    code_action_icon = "",
-    code_action_prompt = {
-      enable = true,
-      sign = true,
-      sign_priority = 20,
-      virtual_text = true
-    }
-  }
-)

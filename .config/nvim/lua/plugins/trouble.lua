@@ -1,12 +1,10 @@
-local trouble = require 'trouble'
-
-trouble.setup {
+return {
   signs = {
     -- icons / text used for a diagnostic
-    error = "",
-    warning = "",
-    hint = "",
-    information = "",
-    other = "﫠"
-  },
+    error = "󰅙",
+    warning = "",
+    hint = "󱌹",
+    information = "󰋼",
+    other = ""
+  }
 }

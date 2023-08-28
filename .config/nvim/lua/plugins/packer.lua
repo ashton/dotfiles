@@ -21,7 +21,7 @@ packer.init(
 packer.startup(
   function(use)
     -- basic plugins
-    use {"wbthomason/packer.nvim", opt = true}
+    use { "wbthomason/packer.nvim", opt = true }
     use "mhartington/oceanic-next"
     use "tpope/vim-surround"
     use "tpope/vim-commentary"
@@ -38,21 +38,22 @@ packer.startup(
     use "vim-test/vim-test"
 
     -- icons
-    use "kyazdani42/nvim-web-devicons"
+    use "nvim-tree/nvim-web-devicons"
     -- just in case
     use "ryanoasis/vim-devicons"
 
     -- Fuzzy finder
     use {
       "nvim-telescope/telescope.nvim",
-      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+      requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } }
     }
 
     use {
       "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
+      requires = "nvim-tree/nvim-web-devicons",
       config = function()
-        require("trouble").setup {}
+        local options = require("plugins/trouble")
+        require("trouble").setup(options)
       end
     }
 
@@ -65,24 +66,42 @@ packer.startup(
 
     -- LSP
     use {
-      "neovim/nvim-lspconfig",
-      "williamboman/nvim-lsp-installer"
+      "williamboman/mason.nvim",
+      run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+    }
+
+    use "williamboman/mason-lspconfig.nvim"
+
+    use {
+      "neovim/nvim-lspconfig"
     }
     use "nvim-lua/lsp-status.nvim" -- for statusline
-    -- use {"RishabhRD/nvim-lsputils", requires = {"RishabhRD/popfix"}} -- better lsp actions
-    use {"tami5/lspsaga.nvim", branch = "nvim6.0"}
-    use "onsails/lspkind-nvim" -- completion symbols like vscode
-    -- use "ray-x/lsp_signature.nvim" -- function signature help
-    use "folke/lsp-colors.nvim" -- colorful diagnostic messages
-    -- use 'jubnzv/virtual-types.nvim'
-    -- until lsp_install supports it:
-    use "rescript-lang/vim-rescript"
     use {
-      "rmagatti/goto-preview",
+      "folke/noice.nvim",
       config = function()
-        require 'plugins/goto-preview'.setup()
+        local options = require("plugins/noice")
+        require("noice").setup(options)
+      end,
+      requires = {
+        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        "MunifTanjim/nui.nvim",
+        -- OPTIONAL:
+        --   `nvim-notify` is only needed, if you want to use the notification view.
+        --   If not available, we use `mini` as the fallback
+        "rcarriga/nvim-notify"
+      }
+    }
+    use {
+      "j-hui/fidget.nvim",
+      tag = "legacy",
+      config = function()
+        require("fidget").setup {}
       end
     }
+    use "lukas-reineke/lsp-format.nvim"
+    use "folke/lsp-colors.nvim" -- colorful diagnostic messages
+    -- until lsp_install supports it:
+    use "rescript-lang/vim-rescript"
 
     -- Treesitter
     use {
@@ -90,16 +109,18 @@ packer.startup(
       run = ":TSUpdate"
     }
 
+    use "nkrkv/nvim-treesitter-rescript"
+
     -- Status and Tab lines
     use "romgrk/barbar.nvim"
-    use 'feline-nvim/feline.nvim'
+    use "feline-nvim/feline.nvim"
     use "nvim-lualine/lualine.nvim"
 
     -- File tree
-    use {"kyazdani42/nvim-tree.lua", requires = {"kyazdani42/nvim-web-devicons"}}
+    use { "nvim-tree/nvim-tree.lua", requires = { "nvim-tree/nvim-web-devicons" } }
 
     -- Git
-    use {"TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim"}
+    use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
 
     use {
       "lewis6991/gitsigns.nvim",
@@ -144,7 +165,7 @@ packer.startup(
 
     -- debugging
     use "mfussenegger/nvim-dap"
-    use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
 
     -- colorschemes
     use "Luxed/ayu-vim"

@@ -119,6 +119,12 @@ _G.packer_plugins = {
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/feline.nvim",
     url = "https://github.com/feline-nvim/feline.nvim"
   },
+  ["fidget.nvim"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vfidget\frequire\0" },
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/fidget.nvim",
+    url = "https://github.com/j-hui/fidget.nvim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/formatter.nvim",
@@ -128,12 +134,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
-  },
-  ["goto-preview"] = {
-    config = { "\27LJ\2\nB\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\25plugins/goto-preview\frequire\0" },
-    loaded = true,
-    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/goto-preview",
-    url = "https://github.com/rmagatti/goto-preview"
   },
   ["gruvbox-baby"] = {
     loaded = true,
@@ -155,30 +155,46 @@ _G.packer_plugins = {
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
     url = "https://github.com/folke/lsp-colors.nvim"
   },
+  ["lsp-format.nvim"] = {
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/lsp-format.nvim",
+    url = "https://github.com/lukas-reineke/lsp-format.nvim"
+  },
   ["lsp-status.nvim"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/lsp-status.nvim",
     url = "https://github.com/nvim-lua/lsp-status.nvim"
-  },
-  ["lspkind-nvim"] = {
-    loaded = true,
-    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
-    url = "https://github.com/onsails/lspkind-nvim"
-  },
-  ["lspsaga.nvim"] = {
-    loaded = true,
-    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
-    url = "https://github.com/tami5/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["mason-lspconfig.nvim"] = {
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
+  },
+  ["mason.nvim"] = {
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
+  },
   neogit = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/neogit",
     url = "https://github.com/TimUntersberger/neogit"
+  },
+  ["noice.nvim"] = {
+    config = { "\27LJ\2\nQ\0\0\4\0\4\0\n6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\1\3\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\nnoice\18plugins/noice\frequire\0" },
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/noice.nvim",
+    url = "https://github.com/folke/noice.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -206,15 +222,15 @@ _G.packer_plugins = {
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
     url = "https://github.com/rcarriga/nvim-dap-ui"
   },
-  ["nvim-lsp-installer"] = {
-    loaded = true,
-    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
-    url = "https://github.com/williamboman/nvim-lsp-installer"
-  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-snippy"] = {
     loaded = true,
@@ -224,17 +240,22 @@ _G.packer_plugins = {
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/kyazdani42/nvim-tree.lua"
+    url = "https://github.com/nvim-tree/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-rescript"] = {
+    loaded = true,
+    path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-treesitter-rescript",
+    url = "https://github.com/nkrkv/nvim-treesitter-rescript"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
-    url = "https://github.com/kyazdani42/nvim-web-devicons"
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   nvim_utils = {
     loaded = true,
@@ -279,7 +300,7 @@ _G.packer_plugins = {
     url = "https://github.com/folke/todo-comments.nvim"
   },
   ["trouble.nvim"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0" },
+    config = { "\27LJ\2\nU\0\0\4\0\4\0\n6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\1\3\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\ftrouble\20plugins/trouble\frequire\0" },
     loaded = true,
     path = "/Users/matheus.ashton/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
@@ -342,22 +363,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
-time([[Config for nvim-colorizer.lua]], false)
--- Config for: trouble.nvim
-time([[Config for trouble.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
-time([[Config for trouble.nvim]], false)
--- Config for: goto-preview
-time([[Config for goto-preview]], true)
-try_loadstring("\27LJ\2\nB\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\25plugins/goto-preview\frequire\0", "config", "goto-preview")
-time([[Config for goto-preview]], false)
 -- Config for: todo-comments.nvim
 time([[Config for todo-comments.nvim]], true)
 try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18todo-comments\frequire\0", "config", "todo-comments.nvim")
 time([[Config for todo-comments.nvim]], false)
+-- Config for: fidget.nvim
+time([[Config for fidget.nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vfidget\frequire\0", "config", "fidget.nvim")
+time([[Config for fidget.nvim]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+time([[Config for nvim-colorizer.lua]], false)
+-- Config for: noice.nvim
+time([[Config for noice.nvim]], true)
+try_loadstring("\27LJ\2\nQ\0\0\4\0\4\0\n6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\1\3\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\nnoice\18plugins/noice\frequire\0", "config", "noice.nvim")
+time([[Config for noice.nvim]], false)
+-- Config for: trouble.nvim
+time([[Config for trouble.nvim]], true)
+try_loadstring("\27LJ\2\nU\0\0\4\0\4\0\n6\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\1\3\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\ftrouble\20plugins/trouble\frequire\0", "config", "trouble.nvim")
+time([[Config for trouble.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

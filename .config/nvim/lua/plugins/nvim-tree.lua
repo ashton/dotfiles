@@ -1,17 +1,33 @@
 local ntree = require "nvim-tree"
-local tree_cb = require "nvim-tree.config".nvim_tree_callback
+
+local function custom_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set('n', 'v',  api.node.open.vertical,        opts('Vertical Split'))
+  vim.keymap.set('n', 's',  api.node.open.horizontal,      opts('Horizontal Split'))
+  vim.keymap.set('n', 'cf', api.fs.create,                 opts('Create Node'))
+  vim.keymap.set('n', '?', api.tree.toggle_help,           opts('Help'))
+end
 
 ntree.setup {
+  on_attach = custom_attach,
   hijack_cursor = true,
   update_focused_file = {
     enable = true
   },
   diagnostics = {
-    enable = true
+    enable = true,
+    show_on_dirs = true
   },
   git = {
-    enable = true,
-    ignore = true,
     timeout = 500
   },
   actions = {
@@ -19,22 +35,10 @@ ntree.setup {
       quit_on_open = true
     }
   },
-  view = {
-    mappings = {
-      list = {
-        {key = "v", cb = tree_cb("vsplit")},
-        {key = "s", cb = tree_cb("split")},
-        {key = "cf", cb = tree_cb("create")}
-      }
-    }
-  },
   renderer = {
     icons = {
       show = {
-        file = true,
-        folder = true,
         git = false,
-        folder_arrow = true
       }
     }
   }
