@@ -1,5 +1,5 @@
 require "options"
-require "plugins"
-require "mappings"
+require("lazy").setup("plugins/main", {})
 require "lsp"
+require "mappings"
 

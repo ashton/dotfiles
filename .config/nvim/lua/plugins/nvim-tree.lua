@@ -15,9 +15,14 @@ local function custom_attach(bufnr)
   vim.keymap.set('n', 's',  api.node.open.horizontal,      opts('Horizontal Split'))
   vim.keymap.set('n', 'cf', api.fs.create,                 opts('Create Node'))
   vim.keymap.set('n', '?', api.tree.toggle_help,           opts('Help'))
+
 end
 
-ntree.setup {
+vim.api.nvim_command("hi NvimTreeGitNew guifg=#9DA3B1")
+vim.api.nvim_command("hi NvimTreeGitDirty guifg=#FAC863")
+vim.api.nvim_command("hi NvimTreeGitStaged guifg=#5FB3B3")
+
+return {
   on_attach = custom_attach,
   hijack_cursor = true,
   update_focused_file = {
@@ -44,6 +49,3 @@ ntree.setup {
   }
 }
 
-vim.api.nvim_command("hi NvimTreeGitNew guifg=#9DA3B1")
-vim.api.nvim_command("hi NvimTreeGitDirty guifg=#FAC863")
-vim.api.nvim_command("hi NvimTreeGitStaged guifg=#5FB3B3")

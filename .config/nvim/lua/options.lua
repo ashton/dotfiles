@@ -16,7 +16,6 @@ local global_options = {
   cmdheight = 2,
   showmode = false,
   wildmenu = true,
-  lazyredraw = true,
   updatetime = 300,
   timeoutlen = 500,
   signcolumn = "auto",
@@ -35,9 +34,6 @@ local global_options = {
   hidden = true,
   mouse = "a"
 }
-
-vim.g.ayucolor = "mirage"
-vim.cmd [[colorscheme ayu]]
 
 local window_options = {
   -- ui
@@ -67,4 +63,10 @@ end
 for name, value in pairs(buffer_options) do
   vim.bo[name] = value
 end
+
+-- used to load the buffer with all folders opened
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = "*",
+  command = "silent! :%foldopen!"
+})
 

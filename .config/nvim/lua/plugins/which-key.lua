@@ -1,4 +1,4 @@
-require "which-key".setup {
+return {
   key_labels = {
     ["<space>"] = "SPC",
     ["<CR>"] = "RET",

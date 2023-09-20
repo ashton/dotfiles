@@ -1,7 +1,7 @@
 local telescope = require 'telescope'
 local actions = require 'telescope/actions'
 
-telescope.setup {
+return {
   defaults = {
     file_ignore_patterns = {'.git', 'node_modules', '__pycache__'},
     mappings = {

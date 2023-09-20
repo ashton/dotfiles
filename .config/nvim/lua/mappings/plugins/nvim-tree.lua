@@ -6,6 +6,6 @@ local leader_mappings = {
   }
 }
 
-vim.api.nvim_set_keymap("n", "\\", ":NvimTreeToggle<CR>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "\\", ":NvimTreeToggle<CR>", { desc= "toggle file explorer",silent = true, noremap = true})
 
 return {["<leader>"] = leader_mappings}

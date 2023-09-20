@@ -1,6 +1,4 @@
-local formatter = require 'formatter'
-
-formatter.setup {
+return {
   filetype = {
     javascript = {
       function()
@@ -33,12 +31,3 @@ formatter.setup {
     }
   }
 }
-
--- format on save
-vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js,*.elm,*.lua FormatWrite
-augroup END
-]], true)
-
