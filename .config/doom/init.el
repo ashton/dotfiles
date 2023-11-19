@@ -44,8 +44,8 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup
-         +all
-         +defaults)   ; tame sudden yet inevitable temporary windows
+        +all
+        +defaults)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
        (treemacs +lsp)          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
@@ -178,7 +178,10 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       (web +lsp)          ; the tubes
+       (web
+        +html
+        +css
+        +lsp)              ; the tubes
        ;;yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
