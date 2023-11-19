@@ -1,0 +1,4 @@
+return {
+  separator = "  ",
+  highlight = true
+}
