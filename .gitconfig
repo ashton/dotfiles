@@ -53,3 +53,5 @@
 	required = True
 [includeIf "gitdir:/Users/matheus.ashton/dev/nu/"]
 	path = /Users/matheus.ashton/.nugitconfig
+[url "git@github.com:"]
+	insteadOf = git://github.com/
