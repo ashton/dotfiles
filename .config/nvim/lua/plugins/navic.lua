@@ -1,4 +1,6 @@
-return {
-  separator = "  ",
-  highlight = true
-}
+return function()
+  return {
+    separator = "  ",
+    highlight = true
+  }
+end

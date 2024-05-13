@@ -8,6 +8,22 @@ return {
       }, -- removing messages when a file is saved
       opts = { skip = true },
     },
+    {
+      filter = {
+        event = "msg_show",
+        kind = "",
+        find = "yanked",
+      }, -- removing messages when yanking text
+      opts = { skip = true }
+    },
+    {
+      filter = {
+        event = "msg_show",
+        kind = "",
+        find = "changes;",
+      }, -- removing messages when reverting changes
+      opts = { skip = true },
+    },
   },
   lsp = {
     override = {

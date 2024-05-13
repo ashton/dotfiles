@@ -89,15 +89,13 @@ local leader_mappings = {
       "code action"
     },
     d = {
-      function()
-        require "trouble".open("lsp_definitions")
-      end,
+      --      '<Cmd>lua require("trouble").toggle("lsp_definitions")<CR>', until trouble v3 is merged
+      "<Cmd>lua vim.lsp.buf.definition()<CR>",
       "go to definition"
     },
     D = {
-      function()
-        require "trouble".open("lsp_references")
-      end,
+      --      '<Cmd>lua require("trouble").toggle("lsp_references")<CR>', until trouble v3 is merged
+      "<Cmd>lua vim.lsp.buf.references()<CR>",
       "find references"
     },
     f = {
@@ -130,57 +128,18 @@ local leader_mappings = {
       c = { function() symbols_custom_search_menu() end, "custom search" },
       w = { "<Cmd>Telescope lsp_workspace_symbols<CR>", "all workspace symbols" },
     },
-    x = {
-      b = { "<Cmd>TroubleToggle document_diagnostics<CR>", "buffer diagnostics" },
-      f = { "<Cmd>TroubleToggle quickfix<CR>", "quickfix list" },
-      l = { function() vim.diagnostic.open_float(0, { scope = 'line' }) end, "line diagnostics" },
-      p = { "<Cmd>TroubleToggle workspace_diagnostics<CR>", "project diagnostics" },
-    }
   }
 }
 
 local goto_mappings = {
   name = "+goto",
-  d = {
-    function()
-      vim.lsp.buf.definition()
-    end,
-    "go to definition"
-  },
-  D = {
-    function()
-      vim.lsp.buf.references()
-    end,
-    "find references"
-  }
-}
-
-local next_mappings = {
-  name = "+next",
-  e = {
-    function()
-      vim.diagnostic.goto_next()
-    end,
-    "next diagnostic"
-  }
-}
-
-local prev_mappings = {
-  name = "+previous",
-  e = {
-    function()
-      vim.diagnostic.goto_prev()
-    end,
-    "previous diagnostic"
-  }
+  d = leader_mappings.c.d,
+  D = leader_mappings.c.D,
 }
 
 vim.keymap.set("v", "<leader>ca", "<cmd><C-U>lua vim.lsp.buf.code_action()<CR>", { desc = "code action for range" })
-vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "show documentation" })
 
 return {
   ["<leader>"] = leader_mappings,
-  ["["] = prev_mappings,
-  ["]"] = next_mappings,
   g = goto_mappings
 }

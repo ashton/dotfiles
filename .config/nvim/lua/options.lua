@@ -1,4 +1,4 @@
-local global_options = {
+local options = {
   -- gui
   termguicolors = true,
   background = "dark",
@@ -10,7 +10,7 @@ local global_options = {
   smarttab = true,
   -- ui
   showmatch = true,
-  laststatus = 2, -- always
+  laststatus = 2,  -- always
   showtabline = 2, -- always
   shortmess = "filnxtToOFc",
   cmdheight = 2,
@@ -40,6 +40,7 @@ local window_options = {
   number = true,
   relativenumber = false,
   cursorline = true,
+  foldlevel = 99,
   foldmethod = "expr",
   foldexpr = "nvim_treesitter#foldexpr()"
 }
@@ -52,21 +53,22 @@ local buffer_options = {
   expandtab = true
 }
 
-for name, value in pairs(global_options) do
-  vim.o[name] = value
+local globals = {
+  loaded_netrw = 1,
+  loaded_netrwPlugin = 1
+}
+
+local opts_vim_table = {
+  { globals,        vim.g },
+  { options,        vim.o },
+  { window_options, vim.wo },
+  { buffer_options, vim.bo }
+}
+
+for _, element in pairs(opts_vim_table) do
+  local config = element[1]
+  local vim_table = element[2]
+  for config_name, config_value in pairs(config) do
+    vim_table[config_name] = config_value
+  end
 end
-
-for name, value in pairs(window_options) do
-  vim.wo[name] = value
-end
-
-for name, value in pairs(buffer_options) do
-  vim.bo[name] = value
-end
-
--- used to load the buffer with all folders opened
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = "*",
-  command = "silent! :%foldopen!"
-})
-

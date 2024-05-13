@@ -1,5 +1,3 @@
-local ntree = require "nvim-tree"
-
 local function custom_attach(bufnr)
   local api = require "nvim-tree.api"
 

@@ -6,7 +6,8 @@ local leader_mappings = {
   },
   s = {
     name = "+search",
-    p = { "<cmd>Telescope live_grep<CR>", "search in project" }
+    p = { "<cmd>Telescope live_grep<CR>", "search in project" },
+    s = { "<cmd>Telescope luasnip<CR>", "search snippets" },
   },
   b = {
     name = "+buffers",
