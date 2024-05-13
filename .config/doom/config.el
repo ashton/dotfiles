@@ -92,8 +92,9 @@
   :hook ((emacs-lisp-mode . evil-cleverparens-mode)
          (clojure-mode . evil-cleverparens-mode)))
 
-(use-package! treemacs-all-the-icons
-  :after treemacs)
+(use-package! treemacs-nerd-icons
+  :after treemacs
+  :config (treemacs-load-theme "nerd-icons"))
 
 (after! projectile
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
@@ -105,51 +106,6 @@
   (when (eq (treemacs-current-visibility) 'visible) (treemacs)))
 
 
-(use-package! org
-  :init (setq org-directory "~/org")
-  :config
-  (setq org-hide-emphasis-markers t
-        org-agenda-files '("~/org/todo.org")
-
-        org-capture-templates (doct '(("Personal Todo entry"
-                                       :keys "t"
-                                       :file "~/org/todo.org"
-                                       :headline "Personal")
-                                      ("Task with deadline"
-                                       :keys "T"
-                                       :headline "Personal"
-                                       :file "~/org/todo.org"
-                                       :template "** TODO %? \nDEADLINE: %t\n")))))
-
-(use-package! org-super-agenda
-  :after org-agenda
-  :config
-  (org-super-agenda-mode)
-  (setq org-agenda-custom-commands '(("o" "Overview"
-                                      ((agenda "" ((org-agenda-overriding-header "")
-                                                   (org-agenda-span 1)
-                                                   (org-agenda-start-day "today")
-                                                   (org-agenda-use-time-grid nil)
-                                                   (org-agenda-format-date "")
-                                                   (org-super-agenda-groups
-                                                    '((:name "Hoje"
-                                                       :date today
-                                                       :order 1
-                                                       :discard (:anything))))))
-                                       (agenda "" ((org-agenda-overriding-header "")
-                                                   (org-agenda-compact-blocks t)
-                                                   (org-agenda-start-day "+1d")
-                                                   (org-agenda-span 7)
-                                                   (org-super-agenda-groups
-                                                    '((:name "Semana"
-                                                       :date today
-                                                       :order 2
-                                                       :discard (:anything))))))
-                                       (alltodo "" ((org-agenda-overriding-header "")
-                                                    (org-super-agenda-groups
-                                                     '((:name "Importante"
-                                                        :priority "A"
-                                                        :discard (:anything t)))))))))))
-
+(load! "+org")
 (load! "+bindings")
 (load! "+nubank")
