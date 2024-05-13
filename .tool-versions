@@ -1,6 +1,13 @@
-nodejs 16.18.1
+nodejs 18.20.2
 elm 0.19.1
-elixir 1.14.1-otp-25
-erlang 25.1.2
+elixir 1.16.2-otp-26
+erlang 26.2.4
 clojure 1.10.1.763
-python 3.8.3
+rust 1.75.0
+ruby 2.7.2
+zig 0.11.0
+opam 2.1.5
+ocaml 5.1.1
+java openjdk-17.0.2
+protoc 26.1
+python 3.11.7
