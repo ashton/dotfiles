@@ -1,12 +1,9 @@
 [user]
 	name = Matheus Ashton Silva
-	email = matheus.ashton@nubank.com.br
+	email = matheusashton@gmail.com
 [core]
-	excludesfile = /Users/matheus.ashton/.gitignore
+	excludesfile = ~/.gitignore
   pager = diff-so-fancy | less -FXRi
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [alias]
 	st = status
 	br = branch
@@ -51,7 +48,6 @@
 	process = git-lfs filter-process --skip
 	clean = git-lfs clean -- %f
 	required = True
-[includeIf "gitdir:/Users/matheus.ashton/dev/nu/"]
-	path = /Users/matheus.ashton/.nugitconfig
-[url "git@github.com:"]
-	insteadOf = git://github.com/
+[includeIf "gitdir:~/dev/nu/"]
+	path = ~/.nugitconfig
+
