@@ -133,6 +133,10 @@ return {
 
   -- code editing plugins
   {
+    "Pocco81/auto-save.nvim",
+    opts = require("plugins/auto-save")
+  },
+  {
     "gbprod/yanky.nvim",
     dependencies = { { "kkharji/sqlite.lua" } },
     opts = require("plugins/yanky"),
