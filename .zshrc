@@ -39,7 +39,7 @@ zinit light-mode for \
 eval "$(starship init zsh)"
 zstyle ':completion:*' menu select
 
-bindkey -v
+bindkey -e
 
 zinit wait lucid for        \
   Valiev/almostontop        \
