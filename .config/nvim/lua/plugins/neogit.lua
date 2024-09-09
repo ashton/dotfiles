@@ -1,0 +1,6 @@
+return {
+  signs = {
+    section = {'', ''},
+    item = {'', ''}
+  }
+}
