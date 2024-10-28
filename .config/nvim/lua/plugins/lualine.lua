@@ -2,7 +2,7 @@ local colors = require("statusline.themes")
 local macro_component = require "statusline.components.macro"
 local scrollbar_component = require "statusline.components.scrollbar"
 local lsp_server_component = require "statusline.components.lsp"
-local lsp_signature_component = require "statusline.components.lsp_signature"
+-- local lsp_signature_component = require "statusline.components.lsp_signature"
 local lsp_breadcrumbs_component = require "statusline.components.breadcrumbs"
 local fancy_cwd_component = require "statusline.components.fancy_cwd"
 
@@ -81,9 +81,9 @@ local config = {
   },
 
   tabline = {
-    lualine_a = {},
-    lualine_b = { { 'filetype', colored = true, icon_only = true, icon = { align = 'left' } } },
-    lualine_c = { { 'filename' } },
+    lualine_a = { { 'filetype', colored = true, icon_only = true, icon = { align = 'left' } } },
+    lualine_b = { { 'filename' } },
+    lualine_c = {},
     lualine_x = {},
     lualine_y = {},
     lualine_z = {},
@@ -91,7 +91,8 @@ local config = {
 
   winbar = {
     lualine_a = { lsp_breadcrumbs_component },
-    lualine_b = { { lsp_signature_component, icon = { "", color = { fg = colors.blue } } } },
+    lualine_b = {},
+    -- lualine_b = { { lsp_signature_component, icon = { "", color = { fg = colors.blue } } } },
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
