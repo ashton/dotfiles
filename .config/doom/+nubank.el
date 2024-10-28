@@ -22,7 +22,7 @@
                                     :headline "Work"
                                     :file "~/org/todo.org"
                                     :children (("Simple task"
-                                                :keys "s"
+                                                "s"
                                                 :template "** TODO %?\n")
                                                ("Task with link (uses file content)"
                                                 :keys "l"
