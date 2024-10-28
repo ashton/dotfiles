@@ -13,5 +13,3 @@ local mappings = vim.tbl_deep_extend(
 for k, v in pairs(mappings) do
   wk.register(v, { prefix = k, silent = true, noremap = true })
 end
-
-vim.keymap.set("n", "<ESC><ESC>", "<cmd>nohlsearch<CR>", { desc = "clear highlight", nowait = true })
