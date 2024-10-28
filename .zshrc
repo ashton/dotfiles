@@ -23,6 +23,9 @@ zstyle ':completion:*' menu select
 ## Avoid vim keybindings in terminal
 bindkey -e
 
+zinit ice wait lucid as"completion" atload"zicompinit;zicdreplay" blockf
+zinit snippet https://gist.githubusercontent.com/ashton/5189ac9730bce1711776f9232ac896fc/raw/93cc026e993d73f10b1d1f728347740b26f1960b/brew_completion.sh
+
 ### Plugins config
   # ytakahashi/igit           \
 zinit wait lucid for        \
@@ -59,11 +62,9 @@ zinit light sharkdp/fd
 zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
 zinit light sharkdp/bat
 
-zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
-zinit load ogham/exa
-
 zinit ice atload"unalias ld"
-zinit light RitchieS/zsh-exa
+zinit ice has'eza' atinit'AUTOCD=1'
+zinit light z-shell/zsh-eza
 
 zinit ice as"command" from"gh-r" atclone"./navi widget zsh > navi-widget.zsh" \
   atpull"%atclone" pick"navi" src"navi-widget.zsh"
@@ -81,3 +82,6 @@ source ~/.bindings
 
 ### Aliases
 source ~/.aliases
+
+# Created by `pipx` on 2024-10-10 15:10:43
+export PATH="$PATH:/Users/matheus.ashton/.local/bin"

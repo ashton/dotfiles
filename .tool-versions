@@ -11,3 +11,5 @@ ocaml 5.1.1
 java openjdk-17.0.2
 protoc 26.1
 python 3.11.7
+gleam 1.4.1
+sbt 1.7.0
