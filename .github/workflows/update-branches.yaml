@@ -9,7 +9,7 @@ jobs:
       - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - run: git fetch --all
       - run: git checkout osx
-      - run: git merge main
+      - run: git merge origin/main
       - run: git push
   update-arch-branch:
     runs-on: ubuntu-latest
@@ -19,5 +19,5 @@ jobs:
       - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - run: git fetch --all
       - run: git checkout arch
-      - run: git merge main
+      - run: git merge origin/main
       - run: git push
