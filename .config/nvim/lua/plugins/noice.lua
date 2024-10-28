@@ -24,6 +24,13 @@ return {
       }, -- removing messages when reverting changes
       opts = { skip = true },
     },
+    {
+      filter = {
+        event = "msg_show",
+        find = "AutoSave:",
+      }, -- removing messages when auto saving
+      opts = { skip = true },
+    },
   },
   lsp = {
     override = {
