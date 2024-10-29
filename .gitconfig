@@ -1,8 +1,43 @@
 [user]
 	email = matheusashton@gmail.com
 	name = Matheus Ashton
-[pull]
-	rebase = true
+[core]
+  pager = diff-so-fancy | less -FXRi
+[alias]
+	st = status
+	br = branch
+	co = checkout
+	ci = commit
+	fs = flow feature start
+	ff = flow feature finish
+	fp = flow feature publish
+	rs = flow release start
+	rf = flow release finish
+	hs = flow hotfix start
+	hf = flow hotfix finish
+	log = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	tags = tag -l --sort=-v:refname
+	pc = push origin HEAD
+[color]
+  ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+[color "branch"]
+        current = yellow reverse
+        local = yellow
+        remote = green
+[color "diff"]
+        meta = yellow bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+[color "status"]
+        added = green
+        changed = yellow
+        untracked = blue
+[push]
+	default = simple
 [init]
 	defaultBranch = main
 [filter "lfs"]
