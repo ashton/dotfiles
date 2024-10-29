@@ -49,6 +49,10 @@ local function config(lsp_zero)
           }
         })
       end,
+
+      gleam = function()
+        require 'lspconfig'.gleam.setup {}
+      end
     }
   })
 

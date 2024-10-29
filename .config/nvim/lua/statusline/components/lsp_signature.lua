@@ -2,7 +2,7 @@ local lsp_signature_component = require("lualine.component"):extend()
 local colors = require("statusline.themes")
 
 function lsp_signature_component:init(options)
-  options.current_arg_icon = options.current_arg_icon or {'', color={fg=colors.blue}}
+  options.current_arg_icon = options.current_arg_icon or { '', color = { fg = colors.blue } }
 
   lsp_signature_component.super.init(self, options)
 end
@@ -43,7 +43,6 @@ function lsp_signature_component:signature(separator)
   return self.current_signature.label .. ' ' .. separator .. ' ' .. self.current_signature.hint
 end
 
-
 function lsp_signature_component:apply_highlights(default_highlight)
   local hl_fmt
   local current_arg_icon = self.options.current_arg_icon[1]
@@ -51,7 +50,6 @@ function lsp_signature_component:apply_highlights(default_highlight)
   if self.options.color_highlight then
     hl_fmt, lsp_signature_component.color_fn_cache = self:format_hl(self.options.color_highlight)
   end
-  
   local highlight = hl_fmt or default_highlight
 
   -- adding highlight to the whole status
