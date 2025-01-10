@@ -2,21 +2,29 @@ setopt incappendhistory
 
 ### sources from other configs
 source ~/.zshenv
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
-[ -f /Users/john/.travis/travis.sh ] && source /Users/john/.travis/travis.sh
 source ~/.nurc
-#source "$HOME/.cargo/env"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
 ### evals
 # eval "$(rbenv init -)"
 # eval "$(pyenv init -)"
-eval $(lending autocomplete:script zsh)
 eval "$(starship init zsh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 zstyle ':completion:*' menu select
 
@@ -83,5 +91,3 @@ source ~/.bindings
 ### Aliases
 source ~/.aliases
 
-# Created by `pipx` on 2024-10-10 15:10:43
-export PATH="$PATH:/Users/matheus.ashton/.local/bin"
