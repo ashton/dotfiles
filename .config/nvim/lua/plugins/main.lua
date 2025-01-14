@@ -266,11 +266,6 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
   },
-  {
-    "microsoft/vscode-js-debug",
-    lazy = true,
-    build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
-  },
   "nvim-lua/lsp-status.nvim", -- for statusline
   "onsails/lspkind.nvim",
   {
@@ -410,5 +405,14 @@ return {
     init = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end
+  },
+  {
+    'nvim-flutter/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim',   -- optional for vim.ui.select
+    },
+    config = true,
   }
 }

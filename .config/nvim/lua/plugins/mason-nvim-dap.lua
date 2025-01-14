@@ -1,5 +1,5 @@
 return {
-  ensure_installed = { "elixir-ls", "js-debug-adapter" },
+  ensure_installed = { "elixir-ls", "html-lsp", "json-lsp", "lua-language-server", "typescript-language-server", "yaml-language-server", "js-debug-adapter", "chrome-debug-adapter" },
   automatic_installation = true,
   handlers = {
     function(config)
