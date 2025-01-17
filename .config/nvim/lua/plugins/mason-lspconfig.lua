@@ -49,14 +49,11 @@ local function config(lsp_zero)
           }
         })
       end,
-
-      gleam = function()
-        require 'lspconfig'.gleam.setup {}
-      end
     }
   })
 
   require 'lspconfig'.ocamllsp.setup {}
+  require 'lspconfig'.gleam.setup {}
 end
 
 return { config = config }

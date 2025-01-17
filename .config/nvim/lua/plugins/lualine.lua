@@ -47,9 +47,7 @@ local config = {
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
-    disabled_filetypes = { -- Filetypes to disable lualine for.
-      winbar = { "css" },  -- only ignores the ft for winbar.
-    },
+    disabled_filetypes = {},
     theme = {
       -- We are going to use lualine_c an lualine_x as left and
       -- right section. Both are highlighted by c theme .  So we
@@ -89,15 +87,7 @@ local config = {
     lualine_z = {},
   },
 
-  winbar = {
-    lualine_a = { lsp_breadcrumbs_component },
-    lualine_b = {},
-    -- lualine_b = { { lsp_signature_component, icon = { "", color = { fg = colors.blue } } } },
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {}
-  }
+  winbar = {}
 }
 
 -- Inserts a component in lualine_c at left section
