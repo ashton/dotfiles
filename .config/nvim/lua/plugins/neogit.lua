@@ -1,6 +1,0 @@
-return {
-  signs = {
-    section = {'', ''},
-    item = {'', ''}
-  }
-}
