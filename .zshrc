@@ -31,6 +31,7 @@ zstyle ':completion:*' menu select
 ## Avoid vim keybindings in terminal
 bindkey -e
 
+zinit pack for fzf
 zinit ice wait lucid as"completion" atload"zicompinit;zicdreplay" blockf
 zinit snippet https://gist.githubusercontent.com/ashton/5189ac9730bce1711776f9232ac896fc/raw/93cc026e993d73f10b1d1f728347740b26f1960b/brew_completion.sh
 
@@ -55,14 +56,11 @@ zinit ice wait lucid atinit"zicompinit; zicdreplay" blockf atpull"zinit creinsta
 zinit light zsh-users/zsh-completions
 
 zinit ice wait lucid atinit"zicompinit; zicdreplay" blockf atpull"zinit creinstall -q ."
-zinit light z-shell/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit load zsh-users/zsh-history-substring-search
 
-zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zinit load trapd00r/LS_COLORS
+zinit pack for ls_colors
 
 zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
 zinit light sharkdp/fd

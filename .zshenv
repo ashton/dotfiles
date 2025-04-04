@@ -7,7 +7,8 @@ export FZF_DEFAULT_COMMAND='rg'
 export ZPLUG_HOME=/usr/local/opt/zplug
 export DOTBARE_DIR="$HOME/.cfg"
 export DOTBARE_TREE="$HOME"
-export PATH="$HOME/.config/emacs/bin/:$GOPATH/bin:$ASDF_DATA_DIR/shims:$PATH"
+export PATH="$HOME/.config/emacs/bin/:$GOPATH/bin:$ASDF_DATA_DIR/shims:$HOME/.local/bin:/opt/homebrew/bin:/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH"
 export EDITOR="nvim"
-. "$HOME/.cargo/env"
+export CLICOLOR=1
+# . "$HOME/.cargo/env"
 . "$ASDF_DATA_DIR/plugins/java/set-java-home.zsh"
