@@ -36,12 +36,17 @@ return {
       }
     },
     keys = {
-      { "iw", "<cmd>lua require('various-textobjs').subword('inner')<CR>", mode = { "o", "x" }, desc = "go to next inner subword" },
-      { "aw", "<cmd>lua require('various-textobjs').subword('outer')<CR>", mode = { "o", "x" }, desc = "go to next outer subword" },
-      { "iv", "<cmd>lua require('various-textobjs').value('inner')<CR>",   mode = { "o", "x" }, desc = "go to next inner value" },
-      { "av", "<cmd>lua require('various-textobjs').value('outer')<CR>",   mode = { "o", "x" }, desc = "go to next outer value" },
-      { "ik", "<cmd>lua require('various-textobjs').key('inner')<CR>",     mode = { "o", "x" }, desc = "go to next inner key" },
-      { "ak", "<cmd>lua require('various-textobjs').key('outer')<CR>",     mode = { "o", "x" }, desc = "go to next outer key" },
+      { "ii", "<cmd>lua require('various-textobjs').identation('inner')<CR>",    mode = { "o", "x" }, desc = "surrounding lines with same level of identation" },
+      { "ai", "<cmd>lua require('various-textobjs').identation('outer')<CR>",    mode = { "o", "x" }, desc = "surrounding lines with same level of identation" },
+      { "iS", "<cmd>lua require('various-textobjs').subword('inner')<CR>",       mode = { "o", "x" }, desc = "go to next inner subword" },
+      { "aS", "<cmd>lua require('various-textobjs').subword('outer')<CR>",       mode = { "o", "x" }, desc = "go to next outer subword" },
+      { "iv", "<cmd>lua require('various-textobjs').value('inner')<CR>",         mode = { "o", "x" }, desc = "go to next inner value of a key-value pair" },
+      { "av", "<cmd>lua require('various-textobjs').value('outer')<CR>",         mode = { "o", "x" }, desc = "go to next outer value of a key-value pair" },
+      { "ik", "<cmd>lua require('various-textobjs').key('inner')<CR>",           mode = { "o", "x" }, desc = "go to next inner key of a key-value pair" },
+      { "ak", "<cmd>lua require('various-textobjs').key('outer')<CR>",           mode = { "o", "x" }, desc = "go to the next , separated argument" },
+      { "i,", "<cmd>lua require('various-textobjs').argument('inner')<CR>",      mode = { "o", "x" }, desc = "go to the next , separated argument including ," },
+      { "a,", "<cmd>lua require('various-textobjs').argument('outer')<CR>",      mode = { "o", "x" }, desc = "go to next outer key of a key-value pair" },
+      { "C",  "<cmd>lua require('various-textobjs').toNextClosingBracket()<CR>", mode = { "o", "x" }, desc = "to the next closing bracket ), ], }" },
     }
   },
   {
