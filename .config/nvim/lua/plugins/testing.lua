@@ -78,10 +78,10 @@ return {
     },
     opts = {
       adapters = {
-        { "neotest-elixir",      ft = { "elixir" } },
-        { "neotest-vitest",      ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "rescript" } },
+        { "neotest-elixir",       ft = { "elixir" } },
+        { "neotest-vitest",       ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "rescript" } },
         { "rustaceanvim.neotest", ft = { "rust" } },
-        { "neotest-jest", { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
+        { "neotest-jest",         { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
       },
       status = { virtual_text = true },
       output = { opn_on_run = true, }
@@ -150,5 +150,10 @@ return {
 
       require("neotest").setup(opts)
     end
+  },
+  {
+    "custom/neotest-gleam",
+    dev = true,
+    dependencies = { "nvim-neotest/neotest" }
   }
 }

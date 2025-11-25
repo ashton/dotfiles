@@ -35,6 +35,11 @@ return {
         { desc = "Joins current line",    cmd = "<cmd>TSJJoin<CR>" },
         { desc = "Format current buffer", cmd = "<cmd>lua vim.lsp.buf.format()<cr>" },
       }, { cat = "Editing", set = false })
+
+      commander.add({
+        { desc = "Test current file", cmd = "<cmd>lua MiniTest.run_file()<CR>" },
+        { desc = "This THIS test",    cmd = "<cmd>lua MiniTest.run_at_location()<CR>" },
+      }, { cat = "Lua Testing", set = false })
     end
   }
 }
