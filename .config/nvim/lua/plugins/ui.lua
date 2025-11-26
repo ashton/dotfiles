@@ -1,3 +1,4 @@
+local key_mapping = require("config.key-mapping")
 return {
   -- Visible Indentations
   {
@@ -216,7 +217,7 @@ return {
       plugins = {
         registers = true,
       },
-      spec = require("config.key-mapping"),
+      spec = key_mapping(),
     }
   }
 }
